@@ -51,6 +51,12 @@ export default class Navbar extends Component{
                 <li class="nav-item active">
                 <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
               </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/games">Games<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/books">Books<span class="sr-only">(current)</span></a>
+              </li>
               </ul>
 
               {this.state.isLoggedin===true&&<ul className="navbar-nav ml-auto">
@@ -78,7 +84,6 @@ export default class Navbar extends Component{
     isSignedIn={true}
   />}
           </nav>
-        {this.state.isLoggedin===true&&<h1></h1>}
        </div>
       </div>
 )

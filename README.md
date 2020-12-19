@@ -6,6 +6,8 @@ We would like to thank all the course staff for providing such a wonderful oppor
 
 1. We implemented Google Sign In using https://dev.to/sivaneshs/add-google-login-to-your-react-apps-in-10-mins-4del.
 
+2. We got the data from https://github.com/christkv/ecommerce/blob/master/preload_data/products.json. We took only the information we felt we required.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
