@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import GameComp from './scomponent'
 import GameData from './gamedata'
+import games from './gamedata'
 
 export default class Home extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class Home extends Component {
         <div className="./home-page.component.css"></div>
         <br/>
         <br/>
-        {GameData.map(game=><GameComp key={game.id} title={game.title} brand={game.brand} age={game.age} genre={game.genre} simgurl={game.simgurl} limgurl={game.limgurl} price={game.price}/>)}
+        {GameData.map(game=><GameComp key={game.id} title={game.title} brand={game.brand} age={game.age} genre={game.genre} simgurl={game.simgurl} limgurl={game.limgurl} id={game.id} price={game.price}/>)}
       </div>
     )
   }

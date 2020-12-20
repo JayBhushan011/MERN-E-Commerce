@@ -2,17 +2,16 @@ import React from 'react'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import './scomponent.css'
+import Axios from 'axios'
 
 export default function GameComp(props){
-    const Handler=()=>{
-        window.location='/product'
-        console.log('props.id')
-    }
     return(
         <div>
             <div className="./game-component.css"></div>
             <div className="container arrange">
-                <button className="button" onClick={Handler}>
+                <button className="button" onClick={()=>{
+                    //window.location='/product'
+                    console.log(props.id)}}>
                 <a href={props.limgurl}><img src={props.simgurl} alt={props.title} height="200px" width="200px"/></a>
                 <br/>
                 <h5>{props.title}</h5>
