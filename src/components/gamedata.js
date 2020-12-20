@@ -899,7 +899,7 @@ const games = [
     "title": "Xbox 360 250GB Console",
     "ranking": 943,
     "warranty": "STILL HAS 6 MONTH WARRANTY LEFT ON ON IT."
-  },
+  }
 ]
 
 export default games
