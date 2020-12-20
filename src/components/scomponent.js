@@ -4,10 +4,15 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import './scomponent.css'
 
 export default function GameComp(props){
+    const Handler=()=>{
+        window.location='/product'
+        console.log('props.id')
+    }
     return(
         <div>
             <div className="./game-component.css"></div>
             <div className="container arrange">
+                <button className="button" onClick={Handler}>
                 <a href={props.limgurl}><img src={props.simgurl} alt={props.title} height="200px" width="200px"/></a>
                 <br/>
                 <h5>{props.title}</h5>
@@ -15,6 +20,7 @@ export default function GameComp(props){
                 <h6>{props.age}</h6>
                 <h6>{props.genre}</h6>
                 <h5>$&nbsp; {props.price}</h5>
+                </button>
             </div>
         </div>
     )
