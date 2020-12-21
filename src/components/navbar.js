@@ -5,6 +5,8 @@ import './navbar.css'
 import GoogleLogin from 'react-google-login'
 import { GoogleLogout } from 'react-google-login'
 import { refreshTokenSetup } from './refreshToken'//Implemented Google SignIn and Out using https://dev.to/sivaneshs/add-google-login-to-your-react-apps-in-10-mins-4del
+import Axios from 'axios'
+var object;
 
 export default class Navbar extends Component{
   constructor(props){
@@ -20,6 +22,27 @@ export default class Navbar extends Component{
       this.setState({name:res.profileObj.givenName})
       this.setState({url:res.profileObj.imageUrl})
       this.setState({isLoggedin:true})
+      object = {googleId: res.profileObj.googleId,
+        email: res.profileObj.email,
+        fName : res.profileObj.givenName,
+        lName : res.profileObj.familyName} ;
+      console.log(object.googleId);
+
+      Axios({
+        method: "POST",
+        data: {
+          googleId: object.googleId,
+          email: object.email,
+          fName : object.fName,
+          lName : object.lName
+        },
+        url: "http://localhost:5000/user/add"
+      })
+      .then(res => res.data)
+      .catch()
+
+
+
       //alert('You have successfully Signed In')
       refreshTokenSetup(res)
   }
