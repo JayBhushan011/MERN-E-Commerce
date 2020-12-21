@@ -15,7 +15,7 @@ function App() {
     <Route path="/" exact component={HomePage}/>
     <Route path="/games" exact component={Games}/>
     <Route path="/books" exact component={Books}/>
-    <Route path="/product" exact component={Product}/>
+    <Route path="/product/:id" component={Product}/>
    </Router>
  );
 }

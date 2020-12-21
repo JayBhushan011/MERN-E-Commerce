@@ -8,7 +8,7 @@ router.route('/getProduct').post( (req,res) => {
   var productId = Number(req.body.id);
 
   Product.findOne({id:productId}, function(err, object){
-    console.log(object);
+    console.log(object)
     res.send(object);
   });
 

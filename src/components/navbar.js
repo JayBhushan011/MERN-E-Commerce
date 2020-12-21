@@ -71,14 +71,14 @@ export default class Navbar extends Component{
                       <a className="dropdown-item" href="/feedback">Feedback</a>
                     </div>
                 </li>
-                <li class="nav-item active">
-                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                <li className="nav-item active">
+                <a className="nav-link" href="/">Home<span className="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/games">Games<span class="sr-only">(current)</span></a>
+              <li className="nav-item active">
+                <a className="nav-link" href="/games">Games<span className="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/books">Books<span class="sr-only">(current)</span></a>
+              <li className="nav-item active">
+                <a className="nav-link" href="/books">Books<span className="sr-only">(current)</span></a>
               </li>
               </ul>
 
