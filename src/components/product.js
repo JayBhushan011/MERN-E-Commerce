@@ -51,7 +51,6 @@ export default function Product(props){
             <p className="p">Price: {finalinfo.price}</p>
             <p className="p">Brand: {finalinfo.brand}</p>
             <p className="p">{finalinfo.warranty!==''&&'Warranty: '+finalinfo.warranty}</p>
-            <p className="p">Age: {finalinfo.age}</p>
             <p className="p">{finalinfo.feature1}</p>
             <p className="p">{finalinfo.feature2}</p>
             <p className="p">{finalinfo.feature3}</p>
