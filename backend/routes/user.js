@@ -9,7 +9,6 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
   const googleId = req.body.googleId;
   const fName = req.body.fName;
-  const lName = req.body.lName;
   const email = req.body.email;
 
   console.log(googleId);
@@ -24,8 +23,7 @@ router.route('/add').post((req, res) => {
       const newUser = new User({
         googleId,
         email,
-        fName,
-        lName,
+        fName
       });
       newUser.save()
         .then(() => res.json('User added!'))

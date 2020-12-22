@@ -24,26 +24,20 @@ export default class Navbar extends Component{
       this.setState({isLoggedin:true})
       object = {googleId: res.profileObj.googleId,
         email: res.profileObj.email,
-        fName : res.profileObj.givenName,
-        lName : res.profileObj.familyName} ;
-      console.log(object.googleId);
-
+        fName : res.profileObj.givenName} ;
+        console.log(object)
       Axios({
         method: "POST",
         data: {
           googleId: object.googleId,
           email: object.email,
-          fName : object.fName,
-          lName : object.lName
+          fName : object.fName
         },
         url: "http://localhost:5000/user/add"
       })
-      .then(res => res.data)
+      .then(res => console.log(res.data))
       .catch()
 
-
-
-      //alert('You have successfully Signed In')
       refreshTokenSetup(res)
   }
   onSignOut(res){

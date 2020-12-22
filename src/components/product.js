@@ -7,6 +7,7 @@ export default function Product(props){
     if(finalinfo.length===0){
     Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
     .then(res=>setfinalinfo(res.data))
+    .then(console.log(finalinfo))
     .catch()
     }
     return(

@@ -5,14 +5,14 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import BookComp from './scomponent'
 import BookData from './bookdata'
 
-export default class Home extends Component {
+export default class Books extends Component {
   render() {
     return (
       <div>
         <div className="./home-page.component.css"></div>
         <br/>
         <br/>
-        {BookData.map(game=><BookComp key={game.id} title={game.title} brand={game.brand} age={game.age} genre={game.genre} simgurl={game.simgurl} limgurl={game.limgurl} price={game.price}/>)}
+        {BookData.map(book=><BookComp key={book.id} title={book.title} brand={book.brand} age={book.age} genre={book.genre} simgurl={book.simgurl} limgurl={book.limgurl} price={book.price} id={book.id}/>)}
       </div>
     )
   }

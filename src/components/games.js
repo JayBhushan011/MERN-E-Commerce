@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import GameComp from './scomponent'
 import GameData from './gamedata'
 
-export default class Home extends Component {
+export default class Games extends Component {
   render() {
     return (
       <div>

@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import { Link } from 'react-router-dom'
 import './scomponent.css'
 import Axios from 'axios' 
-export default function GameComp(props){
+export default function Comp(props){
     return(
         <div>
             <div className="./game-component.css"></div>
