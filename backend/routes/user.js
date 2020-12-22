@@ -12,9 +12,6 @@ router.route('/add').post((req, res) => {
   const fName = req.body.fName;
   const email = req.body.email;
 
-  // console.log(req.body.googleId);
-  //
-  // console.log(googleId);
 
   user = googleId;
 

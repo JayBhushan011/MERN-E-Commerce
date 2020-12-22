@@ -22,18 +22,18 @@ export default class Navbar extends Component{
       this.setState({name:res.profileObj.givenName})
       this.setState({url:res.profileObj.imageUrl})
       this.setState({isLoggedin:true})
-      var objectTwo = res.profileObj;
+
       object = {googleId: res.profileObj.googleId,
         email: res.profileObj.email,
         fName : res.profileObj.givenName} ;
         console.log(object)
       Axios({
         method: "POST",
-        data: objectTwo,
+        data: object,
         url: "http://localhost:5000/user/add"
       })
       .then(res => console.log(res.data))
-      .catch()
+      .catch(err => console.log(err))
 
       refreshTokenSetup(res)
   }

@@ -17,7 +17,8 @@ const userSchema = new Schema ({
     required: true,
   },
   cart: [{
-    type: String
+    type: String,
+    default: ' '
   }]
 }, {
   timestamps: true,
