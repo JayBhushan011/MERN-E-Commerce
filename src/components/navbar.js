@@ -22,17 +22,14 @@ export default class Navbar extends Component{
       this.setState({name:res.profileObj.givenName})
       this.setState({url:res.profileObj.imageUrl})
       this.setState({isLoggedin:true})
+      var objectTwo = res.profileObj;
       object = {googleId: res.profileObj.googleId,
         email: res.profileObj.email,
         fName : res.profileObj.givenName} ;
         console.log(object)
       Axios({
         method: "POST",
-        data: {
-          googleId: object.googleId,
-          email: object.email,
-          fName : object.fName
-        },
+        data: objectTwo,
         url: "http://localhost:5000/user/add"
       })
       .then(res => console.log(res.data))
@@ -41,7 +38,14 @@ export default class Navbar extends Component{
       refreshTokenSetup(res)
   }
   onSignOut(res){
+      Axios({
+        method: "GET",
+        url: "http://localhost:5000/user/logout"
+      })
+      .then(res => console.log(res.data))
+      .catch()
       this.setState({isLoggedin:false})
+
       alert('You have successfully Signed Out')
   }
   render(){

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bodyParser = require("body-parser");
 let User = require('../models/user.model');
+var user;
 
 router.route('/').get((req, res) => {
   res.send(req.user);
@@ -11,7 +12,12 @@ router.route('/add').post((req, res) => {
   const fName = req.body.fName;
   const email = req.body.email;
 
-  console.log(googleId);
+  // console.log(req.body.googleId);
+  //
+  // console.log(googleId);
+
+  user = googleId;
+
 
   User.findOne({
     googleId: googleId
@@ -30,18 +36,37 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
     }
   });
+  console.log(user);
 });
 
+router.route('/logout').get( (req,res) => {
+  user = " ";
+  console.log("user is" + user + "log out" );
+
+});
+
+router.route('/checkLogIn').get( (req,res) => {
+  console.log("user is logged out " + user);
+  if (user === " " || typeof user == 'undefined'){
+    res.send("User is logged out");
+  }
+  else{
+    res.send("User is logged in");
+  }
+})
+
 router.route('/addToCart').post( (req,res) => {
-  var userGoogleId = req.body.userGoogleId;
+  var userGoogleId = user;
   var productId = req.body.productId;
   console.log(userGoogleId);
+  console.log(productId);
 
   User.findOne({
     googleId : userGoogleId
   }, function(err, object){
     console.log(object);
     object.cart.push(productId);
+    console.log(object);
     object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));

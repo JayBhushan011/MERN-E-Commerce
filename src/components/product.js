@@ -1,9 +1,38 @@
 import React,{ useState } from 'react'
 import Axios from 'axios'
 import './product.css'
+var productId;
 
 export default function Product(props){
     const [finalinfo,setfinalinfo]=useState([])
+    productId = props.match.params.id;
+    function handleClick(){
+      Axios.get('http://localhost:5000/user/checkLogIn')
+      .then(function (response) {
+        console.log(response.data);
+        if (response.data === "User is logged out"){
+        alert("Please log in first")};
+        if (response.data === "User is logged in"){
+        addToCart()};
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+  });
+    };
+
+    function addToCart(){
+      Axios({
+        method: "POST",
+        data: {productId : productId},
+        url: "http://localhost:5000/user/addToCart"
+      })
+      .then(res => console.log(res.data))
+      .catch()
+    };
+    console.log(productId);
     if(finalinfo.length===0){
     Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
     .then(res=>setfinalinfo(res.data))
@@ -29,7 +58,7 @@ export default function Product(props){
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
             <input type="number" maxLength="2" min="1" max="20"></input>
-            <button id="shift">Add to cart</button>
+            <button id="shift" onClick={handleClick} >Add to cart</button>
             <button id="shift1">Add to wishlist</button>
         </div>
     )
