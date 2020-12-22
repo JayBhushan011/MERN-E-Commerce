@@ -16,9 +16,9 @@ export default function Product(props){
             <div className="./product.css"></div>
             <a href={finalinfo.limgurl}><img className="img" src={finalinfo.limgurl} alt={finalinfo.title} align="left" height="600px" width="650px"/></a>
             <h5>{finalinfo.title}</h5>
-            <p className="p">Ranking: {finalinfo.ranking}</p>
-            <p className="p">Model: {finalinfo.model}</p>
-            <p className="p">Genre: {finalinfo.genre}</p>
+            <p className="p">{finalinfo.ranking!==0&&'Ranking: '+finalinfo.ranking}</p>
+            <p className="p">{finalinfo.model!==''&&'Model: '+finalinfo.model}</p>
+            <p className="p">{finalinfo.genre!==''&&'Genre: '+finalinfo.genre}</p>
             <p className="p">Price: {finalinfo.price}</p>
             <p className="p">Brand: {finalinfo.brand}</p>
             <p className="p">{finalinfo.warranty!==''&&'Warranty: '+finalinfo.warranty}</p>

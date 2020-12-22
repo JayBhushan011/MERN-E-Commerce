@@ -16,10 +16,6 @@ const userSchema = new Schema ({
     type: String,
     required: true,
   },
-  lName: {
-    type: String,
-    required: true,
-  },
   cart: [{
     type: String
   }]
