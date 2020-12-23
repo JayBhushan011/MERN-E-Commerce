@@ -1,10 +1,12 @@
 import React,{ useState } from 'react'
 import Axios from 'axios'
+import { Link } from 'react-router-dom'
 import './product.css'
 var productId;
 
 export default function Product(props){
     const [finalinfo,setfinalinfo]=useState([])
+    const [qty,setqty]=useState(1)
     productId = props.match.params.id;
     function handleClick(){
       Axios.get('http://localhost:5000/user/checkLogIn')
@@ -22,7 +24,11 @@ export default function Product(props){
         // always executed
   });
     };
-
+    function qtyhandle(e){
+      let quantity={ ...qty }
+      quantity = e.target.value
+      setqty(quantity)
+    }
     function addToCart(){
       Axios({
         method: "POST",
@@ -57,8 +63,8 @@ export default function Product(props){
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
             <form onSubmit={handleClick}>
-            <input type="number" maxLength="2" min="1" max="20" required></input>
-            <button id="shift" >Add to cart</button>
+            <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" required></input>
+            <Link to={`/cart/${props.match.params.id}/${qty}`}><button id="shift" >Add to cart</button></Link>
             <button id="shift1">Add to wishlist</button>
             </form>
         </div>

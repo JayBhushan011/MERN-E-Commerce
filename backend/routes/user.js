@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const bodyParser = require("body-parser");
 let User = require('../models/user.model');
 var user;
 
@@ -55,8 +54,6 @@ router.route('/checkLogIn').get( (req,res) => {
 router.route('/addToCart').post( (req,res) => {
   var userGoogleId = user;
   var productId = req.body.productId;
-  console.log(userGoogleId);
-  console.log(productId);
 
   User.findOne({
     googleId : userGoogleId

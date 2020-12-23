@@ -7,6 +7,7 @@ import HomePage from "./components/home-page"
 import Games from "./components/games"
 import Books from "./components/books"
 import Product from "./components/product"
+import Cart from "./components/cart"
 
 function App() {
  return (
@@ -16,6 +17,7 @@ function App() {
     <Route path="/games" exact component={Games}/>
     <Route path="/books" exact component={Books}/>
     <Route path="/product/:id" component={Product}/>
+    <Route path="/cart/:id/:qty" component={Cart}/>
    </Router>
  );
 }

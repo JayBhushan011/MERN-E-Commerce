@@ -17,6 +17,12 @@ export default class Navbar extends Component{
   }
   componentDidMount(){
     document.body.style.backgroundColor = "#fbeec1"
+    Axios.get('http://localhost:5000/user/checkLogIn')
+      .then(function (response) {
+        console.log(response.data);
+        if (response.data === "User is logged out"){
+        alert("Please log in first")};
+      })
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
