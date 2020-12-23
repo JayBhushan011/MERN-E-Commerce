@@ -8,6 +8,7 @@ import Games from "./components/games"
 import Books from "./components/books"
 import Product from "./components/product"
 import Cart from "./components/cart"
+import Profile from "./components/profile"
 
 function App() {
  return (
@@ -18,6 +19,7 @@ function App() {
     <Route path="/books" exact component={Books}/>
     <Route path="/product/:id" component={Product}/>
     <Route path="/cart/:id/:qty" component={Cart}/>
+    <Route path="/profile" exact component={Profile}/>
    </Router>
  );
 }
