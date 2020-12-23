@@ -56,9 +56,11 @@ export default function Product(props){
             <p className="p">{finalinfo.feature3}</p>
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
-            <input type="number" maxLength="2" min="1" max="20"></input>
-            <button id="shift" onClick={handleClick} >Add to cart</button>
+            <form onSubmit={handleClick}>
+            <input type="number" maxLength="2" min="1" max="20" required></input>
+            <button id="shift" >Add to cart</button>
             <button id="shift1">Add to wishlist</button>
+            </form>
         </div>
     )
 }
