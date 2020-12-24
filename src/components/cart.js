@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
+import CartComp from './cartcomponent'
 
 export default function Cart(props){
     const [finalinfo,setfinalinfo]=useState([])
@@ -14,7 +15,7 @@ export default function Cart(props){
     
     return(
         <div className="container">
-            
+            <CartComp key={props.match.params.id} id={props.match.params.id} price="999" simgurl="http://ecx.images-amazon.com/images/I/51i1Xy1BxHL._SL160_.jpg" title="Assassin's creed I & II" qty={props.match.params.qty}/>
         </div>
     )
 }
