@@ -58,7 +58,6 @@ router.route('/addToCart').post( (req,res) => {
   User.findOne({
     googleId : userGoogleId
   }, function(err, object){
-    console.log(object);
     object.cart.push(productId);
     console.log(object);
     object.save()
