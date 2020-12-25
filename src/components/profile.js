@@ -45,8 +45,8 @@ export default class Profile extends Component{
     
       onSubmit(e) {
         e.preventDefault()
-        const signup={add1:this.state.add1,add2:this.state.add2,city:this.state.city,state:this.state.state,zcode:this.state.zcode,mobile:this.state.mobile}
-        console.log(signup)
+        const address={add1:this.state.add1,add2:this.state.add2,city:this.state.city,state:this.state.state,zcode:this.state.zcode,mobile:this.state.mobile}
+        console.log(address)
       }
     render(){
         return(
