@@ -14,7 +14,12 @@ export default function Cart(props){
     }
     
     return(
-        <div className="container">
+        <div>
+            <h1>Shopping Cart</h1>
+            <div align="right">
+            <h3>Total: {999*props.match.params.qty}</h3>
+            <button>Proceed to Checkout</button>
+            </div>
             <CartComp key={props.match.params.id} id={props.match.params.id} price="999" simgurl="http://ecx.images-amazon.com/images/I/51i1Xy1BxHL._SL160_.jpg" title="Assassin's creed I & II" qty={props.match.params.qty}/>
         </div>
     )
