@@ -9,6 +9,7 @@ import Books from "./components/books"
 import Product from "./components/product"
 import Cart from "./components/cart"
 import Profile from "./components/profile"
+import Checkout from "./components/checkout"
 
 function App() {
  return (
@@ -20,6 +21,7 @@ function App() {
     <Route path="/product/:id" component={Product}/>
     <Route path="/cart/:id/:qty" component={Cart}/>
     <Route path="/profile" exact component={Profile}/>
+    <Route path="/checkout/:total" component={Checkout}/>
    </Router>
  );
 }
