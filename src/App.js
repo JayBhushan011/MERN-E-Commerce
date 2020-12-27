@@ -10,6 +10,9 @@ import Product from "./components/product"
 import Cart from "./components/cart"
 import Profile from "./components/profile"
 import Checkout from "./components/checkout"
+import Credit from "./components/credit"
+import Debit from "./components/debit"
+import Net from "./components/net"
 
 function App() {
  return (
@@ -22,6 +25,9 @@ function App() {
     <Route path="/cart/:id/:qty" component={Cart}/>
     <Route path="/profile" exact component={Profile}/>
     <Route path="/checkout/:total" component={Checkout}/>
+    <Route path="/credit/:total" component={Credit}/>
+    <Route path="/debit/:total" component={Debit}/>
+    <Route path="/net/:total" component={Net}/>
    </Router>
  );
 }

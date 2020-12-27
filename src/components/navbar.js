@@ -96,7 +96,7 @@ export default class Navbar extends Component{
                         clientId="938975649953-3ge11uotsdjfjhdhm4ud8ibgg7u3aeuh.apps.googleusercontent.com"
                         buttonText="Sign Out"
                         onLogoutSuccess={this.onSignOut}/></a>
-                    <a className="dropdown-item" href="profile">Profile</a>
+                    <a className="dropdown-item" href="/profile">Profile</a>
                   </div>
                 </li>
               </ul>}

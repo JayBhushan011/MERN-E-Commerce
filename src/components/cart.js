@@ -2,26 +2,25 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import CartComp from './cartcomponent'
+import './cart.css'
 
 export default function Cart(props){
     const [finalinfo,setfinalinfo]=useState([])
-    console.log(props.match.params.id)
-    console.log(props.match.params.qty)
     if(finalinfo.length===0){
-    Axios.post('http://localhost:5000/user/addToCart',{"productId":props.match.params.id})
-    .then(res=>setfinalinfo(res.data))
-    .then(console.log('Final info:'+finalinfo))
-    .catch()
-    }
+        Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
+        .then(res=>setfinalinfo(res.data))
+        .catch()
+        }
     
     return(
         <div>
             <h1>Shopping Cart</h1>
-            <div align="right">
-            <h3>Total: {999*props.match.params.qty}</h3>
-            <Link to={`/checkout/${999*props.match.params.qty}`}><button>Proceed to Checkout</button></Link>
+            <div className="./cart.css"></div>
+            <CartComp key={props.match.params.id} id={props.match.params.id} price={finalinfo.price} simgurl={finalinfo.simgurl} title={finalinfo.title} qty={props.match.params.qty}/>
+            <div className="container">
+            <h3>Total: {finalinfo.price*props.match.params.qty}</h3>
+            <Link to={`/checkout/${finalinfo.price*props.match.params.qty}`}><button className="btn btn-one">Proceed to Checkout</button></Link>
             </div>
-            <CartComp key={props.match.params.id} id={props.match.params.id} price="999" simgurl="http://ecx.images-amazon.com/images/I/51i1Xy1BxHL._SL160_.jpg" title="Assassin's creed I & II" qty={props.match.params.qty}/>
         </div>
     )
 }
