@@ -38,7 +38,6 @@ export default function Product(props){
       .then(res => console.log(res.data))
       .catch()
     };
-    console.log(productId);
     if(finalinfo.length===0){
     Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
     .then(res=>setfinalinfo(res.data))
@@ -65,7 +64,7 @@ export default function Product(props){
             <form onSubmit={handleClick}>
             <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
             <Link to={`/cart/${props.match.params.id}/${qty}`}><button id="shift" >Add to cart</button></Link>
-            <button id="shift1">Add to wishlist</button>
+            <button className="btn btn-primary" id="shift1">Add to wishlist</button>
             </form>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './cartcomponent.css'
 
 export default function CartComp(props){
@@ -13,7 +13,7 @@ export default function CartComp(props){
                 <td><h6>{props.title}</h6></td>
                 <td>{props.qty}</td>
                 <td><h6>$ {props.price}</h6></td>
-                <td><button>Delete</button></td>
+                <td><button className="btn btn-primary">Delete</button></td>
             </tr>
         </table>
     </div>
