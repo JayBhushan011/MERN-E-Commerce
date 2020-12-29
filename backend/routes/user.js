@@ -13,6 +13,9 @@ router.route('/add').post((req, res) => {
   const googleId = req.body.googleId;
   const fName = req.body.fName;
   const email = req.body.email;
+  const imgUrl = req.body.imgUrl;
+
+
   user = googleId;
   User.findOne({
     googleId: googleId
@@ -24,7 +27,8 @@ router.route('/add').post((req, res) => {
       const newUser = new User({
         googleId,
         email,
-        fName
+        fName,
+        imgUrl
       });
       newUser.save()
         .then(() => res.json('User added!'))
@@ -97,6 +101,30 @@ router.route("/userWishList").get( (req,res) => {
     googleId : userGoogleId
   }, function(err, object){
     res.send(object.wishlist)
+    });
+});
+
+router.route('/addAddress').post( (req,res) =>{
+  var userGoogleId = user;
+  var address = req.body.address;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, function(err, object){
+    object.address.push(address);
+    object.save()
+    .then(() => res.json('Address Added'))
+    .catch(err => res.status(400).json('Error: ' + err));
+    });
+});
+
+router.route('/getAddress').get( (req,res) =>{
+  var userGoogleId = user;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, function(err, object){
+    res.send(object.address);
     });
 });
 

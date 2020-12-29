@@ -16,6 +16,13 @@ const userSchema = new Schema ({
     type: String,
     required: true,
   },
+  imgUrl: { type: String, default: ' ' },
+  address: [
+    {
+    type: String,
+    default: ' '
+  }
+],
   wishlist: [ {
     productId:{type:String, default:' '}
   }

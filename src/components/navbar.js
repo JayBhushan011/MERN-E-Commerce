@@ -31,8 +31,9 @@ export default class Navbar extends Component{
 
       object = {googleId: res.profileObj.googleId,
         email: res.profileObj.email,
-        fName : res.profileObj.givenName} ;
-        console.log(object)
+        fName : res.profileObj.givenName,
+        imgUrl : res.profileObj.imageUrl} ;
+        console.log(res.profileObj);
       Axios({
         method: "POST",
         data: object,
