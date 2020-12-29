@@ -1,20 +1,19 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+// var user = "118094709362044179436";
 var user;
 
 router.route('/').get((req, res) => {
-  res.send(req.user);
+  User.findOne( {googleId : user} )
+    .then((user) => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {
   const googleId = req.body.googleId;
   const fName = req.body.fName;
   const email = req.body.email;
-
-
   user = googleId;
-
-
   User.findOne({
     googleId: googleId
   }, async (err, doc) => {
@@ -54,17 +53,51 @@ router.route('/checkLogIn').get( (req,res) => {
 router.route('/addToCart').post( (req,res) => {
   var userGoogleId = user;
   var productId = req.body.productId;
-
+  var quantity = req.body.quantity;
+  var newCartItem = {productId : productId, quantity: quantity};
   User.findOne({
     googleId : userGoogleId
   }, function(err, object){
-    object.cart.push(productId);
+    object.cart.push(newCartItem);
     console.log(object);
     object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));
     });
-
   });
+
+router.route("/userCart").get( (req,res) => {
+  var userGoogleId = user;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, function(err, object){
+    res.send(object.cart)
+    });
+});
+
+router.route('/addToWishlist').post( (req,res) =>{
+  var userGoogleId = user;
+  var productId = req.body.productId;
+  var newWishListItem = {productId : productId};
+  User.findOne({
+    googleId : userGoogleId
+  }, function(err, object){
+    object.wishlist.push(newWishListItem);
+    object.save()
+    .then(() => res.json('Added to WishList'))
+    .catch(err => res.status(400).json('Error: ' + err));
+    });
+});
+
+router.route("/userWishList").get( (req,res) => {
+  var userGoogleId = user;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, function(err, object){
+    res.send(object.wishlist)
+    });
+});
 
 module.exports = router;

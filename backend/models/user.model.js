@@ -16,10 +16,18 @@ const userSchema = new Schema ({
     type: String,
     required: true,
   },
-  cart: [{
-    type: String,
-    default: ' '
-  }]
+  wishlist: [ {
+    productId:{type:String, default:' '}
+  }
+],
+  cart: [
+    {
+    productId: {type: String,
+    default: ' '},
+    quantity: {type: String,
+    default: ' '}
+  }
+]
 }, {
   timestamps: true,
 });

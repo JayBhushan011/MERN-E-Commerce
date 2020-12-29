@@ -20,7 +20,8 @@ price: Number,
 model : String,
 title: String,
 ranking : Number,
-warranty : String
+warranty : String,
+Category : String,
 },
 {collection : "Product"}
 );
