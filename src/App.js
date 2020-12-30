@@ -13,7 +13,7 @@ import Checkout from "./components/checkout"
 import Credit from "./components/credit"
 import Debit from "./components/debit"
 import Net from "./components/net"
-
+import EditProfile from "./components/editprofile"
 function App() {
  return (
    <Router>
@@ -28,6 +28,7 @@ function App() {
     <Route path="/credit/:total" component={Credit}/>
     <Route path="/debit/:total" component={Debit}/>
     <Route path="/net/:total" component={Net}/>
+    <Route path="/editprofile" exact component={EditProfile}/>
    </Router>
  );
 }

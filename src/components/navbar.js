@@ -11,7 +11,7 @@ var object;
 export default class Navbar extends Component{
   constructor(props){
     super(props)
-    this.state={name:'',url:'',isLoggedin:false}
+    this.state={name:'',url:'',isLoggedin:false,address:[]}
     this.responseGoogle=this.responseGoogle.bind(this)
     this.onSignOut=this.onSignOut.bind(this)
   }
@@ -19,10 +19,10 @@ export default class Navbar extends Component{
     document.body.style.backgroundColor = "#fbeec1"
     Axios.get('http://localhost:5000/user/checkLogIn')
       .then(function (response) {
-        console.log(response.data);
         if (response.data === "User is logged out"){
         alert("Please log in first")};
       })
+      Axios.get('http://localhost:5000/user/getAddress').then(res=>this.setState({address:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
@@ -33,14 +33,11 @@ export default class Navbar extends Component{
         email: res.profileObj.email,
         fName : res.profileObj.givenName,
         imgUrl : res.profileObj.imageUrl} ;
-        console.log(res.profileObj);
       Axios({
         method: "POST",
         data: object,
         url: "http://localhost:5000/user/add"
       })
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
 
       refreshTokenSetup(res)
   }
@@ -49,7 +46,6 @@ export default class Navbar extends Component{
         method: "GET",
         url: "http://localhost:5000/user/logout"
       })
-      .then(res => console.log(res.data))
       .catch()
       this.setState({isLoggedin:false})
 
@@ -97,7 +93,8 @@ export default class Navbar extends Component{
                         clientId="938975649953-3ge11uotsdjfjhdhm4ud8ibgg7u3aeuh.apps.googleusercontent.com"
                         buttonText="Sign Out"
                         onLogoutSuccess={this.onSignOut}/></a>
-                    <a className="dropdown-item" href="/profile">Profile</a>
+                    {<a className="dropdown-item" href="/profile">Profile</a>}
+                    {<a className="dropdown-item" href="/editprofile">Edit Profile</a>}
                   </div>
                 </li>
               </ul>}

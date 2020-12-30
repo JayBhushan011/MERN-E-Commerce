@@ -16,8 +16,11 @@ export default class Profile extends Component{
     
         this.onSubmit=this.onSubmit.bind(this)
     
-        this.state={zcode:0,add1:'',add2:'',city:'',state:null,mobile:0}
+        this.state={zcode:0,add1:'',add2:'',city:'',state:null,mobile:0,profile:[]}
     
+      }
+      componentDidMount(){
+        Axios.get('http://localhost:5000/user').then(res=>this.setState({profile:res.data}))
       }
     onChangeZCode(e){
       this.setState({zcode:e.target.value})
@@ -46,7 +49,8 @@ export default class Profile extends Component{
       onSubmit(e) {
         e.preventDefault()
         const address={add1:this.state.add1,add2:this.state.add2,city:this.state.city,state:this.state.state,zcode:this.state.zcode,mobile:this.state.mobile}
-        console.log(address)
+        Axios.post('http://localhost:5000/user/addAddress',address)
+        Axios.get('http://localhost:5000/user/getAddress').then(res=>console.log(res.data))
       }
     render(){
         return(
@@ -58,9 +62,9 @@ export default class Profile extends Component{
                 <br/>
                 <br/>
                 <br/>
-                <img className="img" src="https://lh5.googleusercontent.com/-_O2o6c7p1qo/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmkQEbCY9hlqi8HGpLevP_D1mS1dw/s96-c/photo.jpg" alt="Saravana" height="70px"/>
+                <img className="img" src={this.state.profile.imgUrl} alt={this.state.profile.fName} height="70px"/>
                 <br/>
-                <h4 className="center">Saravana</h4>
+                <h4 className="center">{this.state.profile.fName}</h4>
                 <br/>
                 <h5>Delivery Address:</h5>
               <br/>

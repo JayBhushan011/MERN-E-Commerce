@@ -1,8 +1,8 @@
 .arrange{float:left; display:inline; background-color:#fffff0;width: 20%;height:450px;display: flex;flex-direction: column;padding: 10px;}
 a{align-self: center;}
-h5{align-self: center;}
 .button{width:290px; height:450px;}
 .button:hover {
     box-shadow: 5px 5px 5px 5px;
     transform: scale(1.05)
-  } 
+  }
+  h6{position:relative; right:235px;}

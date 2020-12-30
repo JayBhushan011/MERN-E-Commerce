@@ -11,6 +11,7 @@ export default function Cart(props){
         .then(res=>setfinalinfo(res.data))
         .catch()
         }
+        Axios.get('http://localhost:5000/user/userCart').then(res=>console.log(res.data))
     
     return(
         <div>

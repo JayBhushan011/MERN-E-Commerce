@@ -2,8 +2,7 @@ import React from 'react'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import { Link } from 'react-router-dom'
-import './scomponent.css'
-import Axios from 'axios' 
+import './scomponent.css' 
 export default function Comp(props){
     return(
         <div>

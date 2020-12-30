@@ -62,7 +62,7 @@ export default function Product(props){
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
             <form onSubmit={handleClick}>
-            <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
+            <input className="btn btn-primary" onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
             <Link to={`/cart/${props.match.params.id}/${qty}`}><button id="shift" >Add to cart</button></Link>
             <button className="btn btn-primary" id="shift1">Add to wishlist</button>
             </form>
