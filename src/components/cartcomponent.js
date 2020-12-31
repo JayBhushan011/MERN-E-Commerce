@@ -9,10 +9,10 @@ export default function CartComp(props){
             <br/>
             <br/>
             <tr>
-                <td><img src={props.simgurl} width="100px" height="100px" alt={props.title}/></td>
-                <td><h6>{props.title}</h6></td>
-                <td>{props.qty}</td>
-                <td><h6>$ {props.price}</h6></td>
+                <td><img className="width" src={props.simgurl} width="100px" height="100px" alt={props.title}/></td>
+                <td><h5 className="width">{props.title}</h5></td>
+                <td><h5 className="width">{props.qty}</h5></td>
+                <td><h5 className="width">$ {props.price}</h5></td>
                 <td><button className="btn btn-primary">Delete</button></td>
             </tr>
         </table>

@@ -1,42 +1,31 @@
 import React,{ useState } from 'react'
 import Axios from 'axios'
-import { Link } from 'react-router-dom'
 import './product.css'
-var productId;
 
 export default function Product(props){
     const [finalinfo,setfinalinfo]=useState([])
     const [qty,setqty]=useState(1)
-    productId = props.match.params.id;
-    function handleClick(){
-      Axios.get('http://localhost:5000/user/checkLogIn')
-      .then(function (response) {
-        console.log(response.data);
-        if (response.data === "User is logged out"){
-        alert("Please log in first")};
-        if (response.data === "User is logged in"){
-        addToCart()};
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-  });
-    };
+
     function qtyhandle(e){
       let quantity={ ...qty }
       quantity = e.target.value
       setqty(quantity)
     }
-    function addToCart(){
-      Axios({
-        method: "POST",
-        data: {productId : productId},
-        url: "http://localhost:5000/user/addToCart"
+    const  addToCart=(qty)=>{
+      Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
+        if(res.data==='User is logged out'){
+          alert('We need you to sign in to proceed to add to cart')
+          window.location='/'
+        }
+        if(res.data==='User is logged in'){
+          window.location=`/cart/${props.match.params.id}/${qty}`
+          Axios({
+            method: "POST",
+            data: {productId : props.match.params.id,quantity:qty},
+          url: "http://localhost:5000/user/addToCart"
+          })
+        }
       })
-      .then(res => console.log(res.data))
-      .catch()
     };
     if(finalinfo.length===0){
     Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
@@ -61,9 +50,9 @@ export default function Product(props){
             <p className="p">{finalinfo.feature3}</p>
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
-            <form onSubmit={handleClick}>
-            <input className="btn btn-primary" onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
-            <Link to={`/cart/${props.match.params.id}/${qty}`}><button id="shift" >Add to cart</button></Link>
+            <form onSubmit={()=>addToCart(qty)}>
+            <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
+            <button className="btn btn-primary" id="shift" >Add to cart</button>
             <button className="btn btn-primary" id="shift1">Add to wishlist</button>
             </form>
         </div>

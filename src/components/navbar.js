@@ -19,10 +19,9 @@ export default class Navbar extends Component{
     document.body.style.backgroundColor = "#fbeec1"
     Axios.get('http://localhost:5000/user/checkLogIn')
       .then(function (response) {
-        if (response.data === "User is logged out"){
-        alert("Please log in first")};
+       if (response.data === "User is logged out"){
+      alert("Please log in first")};
       })
-      Axios.get('http://localhost:5000/user/getAddress').then(res=>this.setState({address:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
@@ -57,7 +56,7 @@ export default class Navbar extends Component{
         <div className="main">
           <nav className="navbar navbar-expand-lg navbar-dark bg-dark">{/*Used these components from using bootstrap*/}
             <div className="./navbar.component.css"></div>
-            <div className="navlogo"><a href="/"><img src="logo.png" width="30%" alt="JAS Logo"></img></a><p className="navlogotext">JAS</p></div>
+            <div className="navlogo"><a href="/"><img src="logo.png" width="30%" alt="JAS"></img></a><p className="navlogotext">JAS</p></div>
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
