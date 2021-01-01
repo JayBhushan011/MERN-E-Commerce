@@ -10,7 +10,6 @@ export default function CartComp(props){
         if(finalinfo.length===0){
         const res = await Axios.post('http://localhost:5000/product/getProduct',{"id":id})
         await setfinalinfo(res.data)
-        console.log(finalinfo)
         }
 }
 
