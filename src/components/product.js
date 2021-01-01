@@ -18,19 +18,18 @@ export default function Product(props){
           window.location='/'
         }
         if(res.data==='User is logged in'){
-          window.location=`/cart/${props.match.params.id}/${qty}`
           Axios({
             method: "POST",
             data: {productId : props.match.params.id,quantity:qty},
           url: "http://localhost:5000/user/addToCart"
           })
+          window.location=`/cart/${props.match.params.id}/${qty}`
         }
       })
     };
     if(finalinfo.length===0){
     Axios.post('http://localhost:5000/product/getProduct',{"id":props.match.params.id})
     .then(res=>setfinalinfo(res.data))
-    .then(console.log(finalinfo))
     .catch()
     }
     return(

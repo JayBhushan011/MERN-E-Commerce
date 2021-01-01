@@ -12,7 +12,6 @@ export default class EditProfile extends Component{
     }
     componentDidMount(){
         Axios.get('http://localhost:5000/user/getAddress')
-        .then(res=>console.log(res.data))
         .then(res=>this.setState({address:res}))
     }
     render(){

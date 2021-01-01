@@ -61,10 +61,10 @@ router.route('/addToCart').post( (req,res) => {
   var newCartItem = {productId : productId, quantity: quantity};
   User.findOne({
     googleId : userGoogleId
-  }, function(err, object){
+  }, async function(err, object){
     object.cart.push(newCartItem);
     console.log(object);
-    object.save()
+    await object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));
     });
