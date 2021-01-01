@@ -26,7 +26,7 @@ export default function Cart(props){
             <div className="./cart.css"></div>
             {finalinfo.map(data=><CartComp qty={data.quantity} id={data.productId}/>)}
             <div className="container">
-            <h3>Subtotal: {total}</h3>
+            <h3>Total: {total}</h3>
             <Link to={`/checkout/${total}`}><button className="btn btn-one">Proceed to Checkout</button></Link>
             </div>
         </div>

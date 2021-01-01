@@ -11,6 +11,19 @@ export default function Product(props){
       quantity = e.target.value
       setqty(quantity)
     }
+
+    const addToWishlist=()=>{
+      Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
+        if(res.data==='User is logged out'){
+          alert('We need you to sign in to proceed to add to wishlist')
+          window.location='/'
+        }
+        if(res.data==='User is logged in'){
+          Axios.post('http://localhost:5000/user/addToWishlist',{"productId":props.match.params.id})
+          window.location=`/wishlist/${props.match.params.id}`
+        }
+      })
+    }
     const  addToCart=(qty)=>{
       Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
         if(res.data==='User is logged out'){
@@ -49,10 +62,10 @@ export default function Product(props){
             <p className="p">{finalinfo.feature3}</p>
             <p>Availability: Available</p>
             <label>Quantity:&nbsp; &nbsp;</label>
-            <form onSubmit={()=>addToCart(qty)}>
+            <form>
             <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
-            <button className="btn btn-primary" id="shift" >Add to cart</button>
-            <button className="btn btn-primary" id="shift1">Add to wishlist</button>
+            <button className="btn btn-primary" onClick={()=>addToCart(qty)} id="shift" >Add to cart</button>
+            <button className="btn btn-primary" onClick={()=>addToWishlist()} id="shift1">Add to wishlist</button>
             </form>
         </div>
     )

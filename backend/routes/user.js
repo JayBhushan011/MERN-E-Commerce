@@ -86,9 +86,9 @@ router.route('/addToWishlist').post( (req,res) =>{
   var newWishListItem = {productId : productId};
   User.findOne({
     googleId : userGoogleId
-  }, function(err, object){
+  }, async function(err, object){
     object.wishlist.push(newWishListItem);
-    object.save()
+    await object.save()
     .then(() => res.json('Added to WishList'))
     .catch(err => res.status(400).json('Error: ' + err));
     });

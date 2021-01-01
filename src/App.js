@@ -14,6 +14,7 @@ import Credit from "./components/credit"
 import Debit from "./components/debit"
 import Net from "./components/net"
 import EditProfile from "./components/editprofile"
+import Wishlist from './components/wishlist'
 function App() {
  return (
    <Router>
@@ -23,6 +24,7 @@ function App() {
     <Route path="/books" exact component={Books}/>
     <Route path="/product/:id" component={Product}/>
     <Route path="/cart/:id/:qty" component={Cart}/>
+    <Route path="/wishlist/:id" component={Wishlist}/>
     <Route path="/profile" exact component={Profile}/>
     <Route path="/checkout/:total" component={Checkout}/>
     <Route path="/credit/:total" component={Credit}/>
