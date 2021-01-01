@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 let Product = require('../models/product.model');
-let price = 0;
+var price;
 
 router.route('/').get((req, res) => {
   Product.find()
@@ -11,10 +11,10 @@ router.route('/').get((req, res) => {
 
 router.route('/priceCalculate').post( (req, res) => {
   price = req.body.total;
+  res.send("Thanks")
 })
 router.route('/priceCalculate').get( (req, res) => {
   res.send(price)
-  price = 0;
 })
 
 router.route('/getBooks').get((req, res) => {
