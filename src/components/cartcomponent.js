@@ -4,12 +4,10 @@ import './cartcomponent.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 var toadd=0
 export default function CartComp(props){
-    console.log(props.id)
     const [finalinfo,setfinalinfo]=useState([])
-    const [priceofproduct,setpriceofproduct]=useState(0)
+    const [priceofproduct,setpriceofproduct]=useState('')
 
     function total(qty,price){
-        console.log(qty,price)
         toadd=toadd+qty*price
         setpriceofproduct(toadd/6)
     }    
@@ -22,6 +20,7 @@ export default function CartComp(props){
         
         }
         //useEffect(total(props.qty,finalinfo.price),[])
+    Axios.post('http://localhost:5000/product/priceCalculate',{"total":priceofproduct})
 }
 
 
