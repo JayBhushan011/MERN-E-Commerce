@@ -38,6 +38,40 @@ router.route('/add').post((req, res) => {
   console.log(user);
 });
 
+router.route('/addAddress').post( (req,res) =>{
+  var userGoogleId = user;
+  var address = req.body;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+    object.address.push(address);
+    await object.save()
+    .then(() => res.json('Address Added'))
+    .catch(err => res.status(400).json('Error: ' + err));
+    });
+});
+
+router.route('/getAddress').get( (req,res) =>{
+  var userGoogleId = user;
+
+  User.findOne({
+    googleId : userGoogleId
+  },function(err, object){
+    res.send(object.address);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 router.route('/logout').get( (req,res) => {
   user = " ";
   console.log("user is" + user + "log out" );
@@ -101,30 +135,6 @@ router.route("/userWishList").get( (req,res) => {
     googleId : userGoogleId
   }, function(err, object){
     res.send(object.wishlist)
-    });
-});
-
-router.route('/addAddress').post( (req,res) =>{
-  var userGoogleId = user;
-  var address = req.body.address;
-
-  User.findOne({
-    googleId : userGoogleId
-  }, function(err, object){
-    object.address.push(address);
-    object.save()
-    .then(() => res.json('Address Added'))
-    .catch(err => res.status(400).json('Error: ' + err));
-    });
-});
-
-router.route('/getAddress').get( (req,res) =>{
-  var userGoogleId = user;
-
-  User.findOne({
-    googleId : userGoogleId
-  }, function(err, object){
-    res.send(object.address);
     });
 });
 

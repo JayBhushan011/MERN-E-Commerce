@@ -35,9 +35,8 @@ getArray(props.id)
                         <div className="small"><img className="width" height="100px" width="100px" src={finalinfo.simgurl} alt={finalinfo.title}/></div>
                         <div className="min-30"><h5 className="width-1">{finalinfo.title}</h5></div>
                         <div className="min-10"><h5 className="width-2">{props.qty}</h5></div>
-                        <div className="min-10"><h5 className="width">$ {finalinfo.price}</h5></div>
                         <div className="min-10"><h5 className="width">$ {finalinfo.price*props.qty}</h5></div>
-                        <div className="min-10"><button className="btn btn-primary">Delete</button></div>
+                        <div className="min-10"><button className="btn btn-primary">Remove</button></div>
                         <div className="min-10"><h5 className="width">$ {priceofproduct}</h5></div>
                     </div>
                     

@@ -11,7 +11,7 @@ var object;
 export default class Navbar extends Component{
   constructor(props){
     super(props)
-    this.state={name:'',url:'',isLoggedin:false,address:[]}
+    this.state={name:'',url:'',isLoggedin:false,address:[],finalinfo:[]}
     this.responseGoogle=this.responseGoogle.bind(this)
     this.onSignOut=this.onSignOut.bind(this)
   }
@@ -22,6 +22,8 @@ export default class Navbar extends Component{
        if (response.data === "User is logged out"){
       alert("Please log in first")};
       })
+
+      Axios.get('http://localhost:5000/user/userCart').then(res=>this.setState({finalinfo:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
@@ -82,7 +84,9 @@ export default class Navbar extends Component{
               </li>
               </ul>
 
-              {this.state.isLoggedin===true&&<ul className="navbar-nav ml-auto">
+              {this.state.isLoggedin===true&&
+              <ul className="navbar-nav ml-auto">
+                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/">Cart ({this.state.finalinfo.length})<span className="sr-only">(current)</span></a></li>}
               <img src={this.state.url} alt="" height="50px"/>
                   <li className="nav-item dropdown active">
                   <a  className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Welcome {this.state.name}<span className="sr-only">(current)</span></a>
@@ -92,8 +96,8 @@ export default class Navbar extends Component{
                         clientId="938975649953-3ge11uotsdjfjhdhm4ud8ibgg7u3aeuh.apps.googleusercontent.com"
                         buttonText="Sign Out"
                         onLogoutSuccess={this.onSignOut}/></a>
-                    {<a className="dropdown-item" href="/profile">Profile</a>}
-                    {<a className="dropdown-item" href="/editprofile">Edit Profile</a>}
+                    <a className="dropdown-item" href="/profile">Profile</a>
+                    <a className="dropdown-item" href="/editprofile">Edit Profile</a>
                   </div>
                 </li>
               </ul>}
@@ -108,7 +112,7 @@ export default class Navbar extends Component{
     isSignedIn={true}
   />}
           </nav>
-       </div>
+        </div>
       </div>
 )
 }
