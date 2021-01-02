@@ -49,7 +49,7 @@ export default class Profile extends Component{
       async onSubmit(e) {
         e.preventDefault()
         const address={add1:this.state.add1,add2:this.state.add2,city:this.state.city,state:this.state.state,zcode:this.state.zcode,mobile:this.state.mobile}
-        Axios.post('http://localhost:5000/user/addAddress',{"address":address})
+        Axios.post('http://localhost:5000/user/addAddress',{address})
         const res = await Axios.get('http://localhost:5000/user/getAddress')
         await this.setState({address:res.data})
         await console.log(this.state.address)

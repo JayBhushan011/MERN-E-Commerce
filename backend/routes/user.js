@@ -1,7 +1,85 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+let Product = require('../models/product.model');
 var user = "118094709362044179436";
 //var user;
+var existingCartItem = 0;
+var existingCartItemTwo = 0;
+
+var totalPrice = 0;
+
+function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].productId === obj) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function containsObjectAndRemove(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].productId === obj) {
+            existingCartItemTwo = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function containsObjectAndChanges(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].productId === obj) {
+          existingCartItem = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+async function givePriceOfProductAndCalculateTotal(id, quantity){
+  Product.findOne({
+    id:id
+  }, await function(err, object){
+    totalPrice = ( totalPrice + (object.price)*quantity )
+    console.log(totalPrice);
+  });
+};
+
+async function calculateTotalAmount(list){
+  let i;
+  var product;
+  var quantity;
+
+  for (i = 0; i<list.length; i++){
+    product = parseInt( list[i].productId );
+    quantity = parseInt(list[i].quantity);
+
+    await givePriceOfProductAndCalculateTotal(product, quantity);
+
+  }
+  var totalAmount = totalPrice;
+  console.log( "total" + totalAmount);
+}
+
+router.route('/getTotalAmount').get((req, res) => {
+  console.log(" total hey" + totalPrice);
+  User.findOne({
+    googleId : user
+  }, async function(err, object){
+    await calculateTotalAmount(object.cart)
+    console.log(" total hey" + totalPrice);
+    res.send(object.cart)
+    });
+
+  });
+
 
 router.route('/').get((req, res) => {
   User.findOne( {googleId : user} )
@@ -38,18 +116,18 @@ router.route('/add').post((req, res) => {
 
 router.route('/addAddress').post( (req,res) =>{
   var userGoogleId = user;
-  var add1 = req.body.address.add1;
-  var add2 = req.body.address.add2;
-  var city = req.body.address.city;
-  var state = req.body.address.state;
-  var zcode = req.body.address.zcode;
-  var mobile = req.body.address.mobile;
+  var add1 = req.body.add1;
+  var add2 = req.body.add2;
+  var city = req.body.city;
+  var state = req.body.state;
+  var zcode = req.body.zcode;
+  var mobile = req.body.mobile;
   var address = {add1: add1, add2: add2, city: city, state: state, zcode: zcode, mobile: mobile};
 
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
-    object.address.push(address);
+    object.address = address;
     await object.save()
     .then(() => res.json('Address Added'))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -83,45 +161,6 @@ router.route('/checkLogIn').get( (req,res) => {
   }
 })
 
-// router.route('/addToCart').post( (req,res) => {
-//   var userGoogleId = user;
-//   var productId = req.body.productId;
-//   var quantity = req.body.quantity;
-//   var newCartItem = {productId : productId, quantity: quantity};
-//   var i = 0;
-//   var j = 0;
-//   User.findOne({
-//     googleId : userGoogleId
-//   }, async function(err, object){
-//     for (var x in object.cart){
-//       i = i + 1;
-//       console.log(x);
-//       if (x.productId === productId){
-//         let q = parseInt(x.quantity);
-//         let qTwo = parseInt(quantity);
-//         q = q + qTwo
-//         q = q.toString()
-//         var oldCartItem = {productId : productId, quantity: q};
-//         object.cart.push(oldCartItem);
-//         object.cart.splice(i);
-//         console.log(object);
-//         object.save()
-//         .then(() => res.json('Updated cart!'))
-//         .catch(err => res.status(400).json('Error: ' + err));
-//       }
-//       else{
-//         j = j + 1;
-//       }
-//     }
-//     if (j == object.cart.length){
-//     object.cart.push(newCartItem);
-//     console.log(object);
-//     await object.save()
-//     .then(() => res.json('Added to cart!'))
-//     .catch(err => res.status(400).json('Error: ' + err));
-//   }});
-//   });
-
 router.route('/addToCart').post( (req,res) => {
   var userGoogleId = user;
   var productId = req.body.productId;
@@ -130,16 +169,133 @@ router.route('/addToCart').post( (req,res) => {
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
+    if (containsObjectAndChanges(productId,object.cart)){
+      quantity = parseInt(quantity)
+      let oldQuantity = parseInt(object.cart[existingCartItem].quantity)
+      let newQuantity = quantity + oldQuantity;
+      console.log(quantity,oldQuantity, newQuantity);
+      object.cart[existingCartItem].quantity = newQuantity.toString() ;
+      object.save()
+      .then(() => res.json('Already Existing Item, quantity increased' + object.cart[existingCartItem]))
+      .catch(err => res.status(400).json('Error: ' + err));
+      existingCartItem = 0;
+    }
+    else{
+      object.cart.push(newCartItem);
+      console.log(object);
+      await object.save()
+      .then(() => res.json('Added to cart!'))
+      .catch(err => res.status(400).json('Error: ' + err));
+    }
 
-    object.cart.push(newCartItem);
-    console.log(object);
-    await object.save()
-    .then(() => res.json('Added to cart!'))
-    .catch(err => res.status(400).json('Error: ' + err));
 
   });
 
     });
+
+router.route('/removeFromCart').post( (req,res) => {
+  var userGoogleId = user;
+  var productId = req.body.productId;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+    if (containsObjectAndRemove(productId,object.cart)){
+      console.log(existingCartItemTwo);
+      object.cart.splice(existingCartItemTwo);
+      object.save()
+      .then(() => res.json("Removed from Cart"))
+      .catch(err => res.status(400).json('Error: ' + err));
+      existingCartItemTwo = 0;
+    }
+    else{
+      res.send("Product not in cart");
+    }
+
+
+  });
+
+    });
+
+router.route('/cartToWishlist').post( (req,res) => {
+  var userGoogleId = user;
+  var productId = req.body.productId;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+    if (containsObjectAndRemove(productId,object.cart)){
+      console.log(existingCartItemTwo);
+
+      if (containsObject(productId,object.wishlist)){
+        console.log("Already in wishlist");
+      }
+      else{object.wishlist.push({productId : productId});}
+      object.cart.splice(existingCartItemTwo);
+      object.save()
+      .then(() => res.json("Removed from Cart and Moved to Wishlist"))
+      .catch(err => res.status(400).json('Error: ' + err));
+      existingCartItemTwo = 0;
+    }
+    else{
+      res.send("Product not in cart");
+    }
+
+
+  });
+});
+
+router.route('/wishlistToCart').post( (req,res) => {
+  var userGoogleId = user;
+  var productId = req.body.productId;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+    if (containsObjectAndRemove(productId,object.wishlist)){
+      console.log(existingCartItemTwo);
+
+      if (containsObject(productId,object.cart)){
+        console.log("Already in cart");
+      }
+      else{object.cart.push({productId : productId, quantity: "1"});}
+      object.wishlist.splice(existingCartItemTwo);
+      object.save()
+      .then(() => res.json("Removed from Wishlist and Moved to Cart"))
+      .catch(err => res.status(400).json('Error: ' + err));
+      existingCartItemTwo = 0;
+    }
+    else{
+      res.send("Product not in Wishlist");
+    }
+
+
+  });
+});
+
+router.route('/removeFromWishlist').post( (req,res) => {
+  var userGoogleId = user;
+  var productId = req.body.productId;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+    if (containsObjectAndRemove(productId,object.wishlist)){
+      console.log(existingCartItemTwo);
+      object.wishlist.splice(existingCartItemTwo);
+      object.save()
+      .then(() => res.json("Removed from Wishlist"))
+      .catch(err => res.status(400).json('Error: ' + err));
+      existingCartItemTwo = 0;
+    }
+    else{
+      res.send("Product not in cart");
+    }
+
+
+  });
+});
+
 
 router.route("/userCart").get( (req,res) => {
   var userGoogleId = user;
@@ -163,11 +319,15 @@ router.route('/addToWishlist').post( (req,res) =>{
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
+    if (containsObject(productId,object.wishlist)){
+      res.send("Already in wishlist");
+    }
+    else{
     object.wishlist.push(newWishListItem);
     await object.save()
     .then(() => res.json('Added to WishList'))
     .catch(err => res.status(400).json('Error: ' + err));
-    });
+    }});
 });
 
 router.route("/userWishList").get( (req,res) => {

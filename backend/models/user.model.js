@@ -17,7 +17,7 @@ const userSchema = new Schema ({
     required: true,
   },
   imgUrl: { type: String, default: ' ' },
-  address: [
+  address:
     {
     add1: {type: String,
     default: ' '},
@@ -31,8 +31,7 @@ const userSchema = new Schema ({
     default: ' '},
     mobile: {type: String,
     default: ' '}
-  }
-],
+  },
   wishlist: [ {
     productId:{type:String, default:' '}
   }
