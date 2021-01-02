@@ -105,11 +105,16 @@ router.route('/addToCart').post( (req,res) => {
 router.route("/userCart").get( (req,res) => {
   var userGoogleId = user;
 
-  User.findOne({
-    googleId : userGoogleId
-  }, function(err, object){
-    res.send(object.cart)
-    });
+  if (user === " " || typeof user == 'undefined'){
+    res.send("User is logged out. Please log in.");
+  }
+  else{
+    User.findOne({
+      googleId : userGoogleId
+    }, function(err, object){
+      res.send(object.cart)
+      });
+  }
 });
 
 router.route('/addToWishlist').post( (req,res) =>{
