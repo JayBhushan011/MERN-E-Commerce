@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
-var user = "118094709362044179436";
-// var user;
+//var user = "118094709362044179436";
+var user;
 
 router.route('/').get((req, res) => {
   User.findOne( {googleId : user} )
