@@ -23,7 +23,7 @@ function App() {
     <Route path="/games" exact component={Games}/>
     <Route path="/books" exact component={Books}/>
     <Route path="/product/:id" component={Product}/>
-    <Route path="/cart/:id/:qty" component={Cart}/>
+    <Route path="/cart" exact component={Cart}/>
     <Route path="/wishlist/:id" component={Wishlist}/>
     <Route path="/profile" exact component={Profile}/>
     <Route path="/checkout/:total" component={Checkout}/>

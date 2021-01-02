@@ -91,15 +91,38 @@ router.route('/addToCart').post( (req,res) => {
   var productId = req.body.productId;
   var quantity = req.body.quantity;
   var newCartItem = {productId : productId, quantity: quantity};
+  var i = 0;
+  var j = 0;
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
+    for (var x in object.cart){
+      i = i + 1;
+      console.log(x);
+      if (x.productId === productId){
+        let q = parseInt(x.quantity);
+        let qTwo = parseInt(quantity);
+        q = q + qTwo
+        q = q.toString()
+        var oldCartItem = {productId : productId, quantity: q};
+        object.cart.push(oldCartItem);
+        object.cart.splice(i);
+        console.log(object);
+        object.save()
+        .then(() => res.json('Updated cart!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+      }
+      else{
+        j = j + 1;
+      }
+    }
+    if (j == object.cart.length){
     object.cart.push(newCartItem);
     console.log(object);
     await object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));
-    });
+  }});
   });
 
 router.route("/userCart").get( (req,res) => {

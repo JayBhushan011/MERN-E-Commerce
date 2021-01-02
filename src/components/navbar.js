@@ -86,7 +86,7 @@ export default class Navbar extends Component{
 
               {this.state.isLoggedin===true&&
               <ul className="navbar-nav ml-auto">
-                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/">Cart ({this.state.finalinfo.length})<span className="sr-only">(current)</span></a></li>}
+                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/cart">Cart ({this.state.finalinfo.length})<span className="sr-only">(current)</span></a></li>}
               <img src={this.state.url} alt="" height="50px"/>
                   <li className="nav-item dropdown active">
                   <a  className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Welcome {this.state.name}<span className="sr-only">(current)</span></a>
