@@ -19,8 +19,8 @@ const userSchema = new Schema ({
   imgUrl: { type: String, default: ' ' },
   address: [
     {
-    type: String,
-    default: ' '
+    address: {type: String,
+    default: ' '}
   }
 ],
   wishlist: [ {

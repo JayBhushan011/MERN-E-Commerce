@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
-// var user = "118094709362044179436";
-var user;
+var user = "118094709362044179436";
+// var user;
 
 router.route('/').get((req, res) => {
   User.findOne( {googleId : user} )
@@ -14,8 +14,6 @@ router.route('/add').post((req, res) => {
   const fName = req.body.fName;
   const email = req.body.email;
   const imgUrl = req.body.imgUrl;
-
-
   user = googleId;
   User.findOne({
     googleId: googleId
@@ -40,7 +38,7 @@ router.route('/add').post((req, res) => {
 
 router.route('/addAddress').post( (req,res) =>{
   var userGoogleId = user;
-  var address = req.body;
+  var address = {address: req.body.address};
 
   User.findOne({
     googleId : userGoogleId
