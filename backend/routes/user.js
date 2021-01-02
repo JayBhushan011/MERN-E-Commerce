@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
-//var user = "118094709362044179436";
-var user;
+var user = "118094709362044179436";
+//var user;
 
 router.route('/').get((req, res) => {
   User.findOne( {googleId : user} )
@@ -38,7 +38,13 @@ router.route('/add').post((req, res) => {
 
 router.route('/addAddress').post( (req,res) =>{
   var userGoogleId = user;
-  var address = {address: req.body.address};
+  var add1 = req.body.address.add1;
+  var add2 = req.body.address.add2;
+  var city = req.body.address.city;
+  var state = req.body.address.state;
+  var zcode = req.body.address.zcode;
+  var mobile = req.body.address.mobile;
+  var address = {add1: add1, add2: add2, city: city, state: state, zcode: zcode, mobile: mobile};
 
   User.findOne({
     googleId : userGoogleId
@@ -61,15 +67,6 @@ router.route('/getAddress').get( (req,res) =>{
 });
 
 
-
-
-
-
-
-
-
-
-
 router.route('/logout').get( (req,res) => {
   user = " ";
   console.log("user is" + user + "log out" );
@@ -86,43 +83,60 @@ router.route('/checkLogIn').get( (req,res) => {
   }
 })
 
+// router.route('/addToCart').post( (req,res) => {
+//   var userGoogleId = user;
+//   var productId = req.body.productId;
+//   var quantity = req.body.quantity;
+//   var newCartItem = {productId : productId, quantity: quantity};
+//   var i = 0;
+//   var j = 0;
+//   User.findOne({
+//     googleId : userGoogleId
+//   }, async function(err, object){
+//     for (var x in object.cart){
+//       i = i + 1;
+//       console.log(x);
+//       if (x.productId === productId){
+//         let q = parseInt(x.quantity);
+//         let qTwo = parseInt(quantity);
+//         q = q + qTwo
+//         q = q.toString()
+//         var oldCartItem = {productId : productId, quantity: q};
+//         object.cart.push(oldCartItem);
+//         object.cart.splice(i);
+//         console.log(object);
+//         object.save()
+//         .then(() => res.json('Updated cart!'))
+//         .catch(err => res.status(400).json('Error: ' + err));
+//       }
+//       else{
+//         j = j + 1;
+//       }
+//     }
+//     if (j == object.cart.length){
+//     object.cart.push(newCartItem);
+//     console.log(object);
+//     await object.save()
+//     .then(() => res.json('Added to cart!'))
+//     .catch(err => res.status(400).json('Error: ' + err));
+//   }});
+//   });
+
 router.route('/addToCart').post( (req,res) => {
   var userGoogleId = user;
   var productId = req.body.productId;
   var quantity = req.body.quantity;
   var newCartItem = {productId : productId, quantity: quantity};
-  var i = 0;
-  var j = 0;
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
-    for (var x in object.cart){
-      i = i + 1;
-      console.log(x);
-      if (x.productId === productId){
-        let q = parseInt(x.quantity);
-        let qTwo = parseInt(quantity);
-        q = q + qTwo
-        q = q.toString()
-        var oldCartItem = {productId : productId, quantity: q};
-        object.cart.push(oldCartItem);
-        object.cart.splice(i);
-        console.log(object);
-        object.save()
-        .then(() => res.json('Updated cart!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-      }
-      else{
-        j = j + 1;
-      }
-    }
-    if (j == object.cart.length){
+
     object.cart.push(newCartItem);
     console.log(object);
     await object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));
-  }});
+  });
   });
 
 router.route("/userCart").get( (req,res) => {

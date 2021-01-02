@@ -19,7 +19,17 @@ const userSchema = new Schema ({
   imgUrl: { type: String, default: ' ' },
   address: [
     {
-    address: {type: String,
+    add1: {type: String,
+    default: ' '},
+    add2: {type: String,
+    default: ' '},
+    city: {type: String,
+    default: ' '},
+    state: {type: String,
+    default: ' '},
+    zcode: {type: String,
+    default: ' '},
+    mobile: {type: String,
     default: ' '}
   }
 ],

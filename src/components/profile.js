@@ -13,11 +13,11 @@ export default class Profile extends Component{
         this.onChangeState=this.onChangeState.bind(this)
         this.onChangeZCode=this.onChangeZCode.bind(this)
         this.onChangeMobile=this.onChangeMobile.bind(this)
-    
+
         this.onSubmit=this.onSubmit.bind(this)
-    
+
         this.state={zcode:0,add1:'',add2:'',city:'',state:null,mobile:0,profile:[],address:[]}
-    
+
       }
       componentDidMount(){
         Axios.get('http://localhost:5000/user').then(res=>this.setState({profile:res.data}))
@@ -25,35 +25,35 @@ export default class Profile extends Component{
     onChangeZCode(e){
       this.setState({zcode:e.target.value})
     }
-    
+
     onChangeAddress1(e){
       this.setState({add1:e.target.value})
     }
-    
+
     onChangeAddress2(e){
       this.setState({add2:e.target.value})
     }
-    
+
     onChangeCity(e){
       this.setState({city:e.target.value})
     }
-    
+
     onChangeState(e){
       this.setState({state:e.target.value})
     }
-    
+
     onChangeMobile(e){
       this.setState({mobile:e.target.value})
     }
-    
+
       async onSubmit(e) {
         e.preventDefault()
         const address={add1:this.state.add1,add2:this.state.add2,city:this.state.city,state:this.state.state,zcode:this.state.zcode,mobile:this.state.mobile}
         console.log(address)
-        Axios.post('http://localhost:5000/user/addAddress',address)
+        Axios.post('http://localhost:5000/user/addAddress',{"address" : address})
         const res = await Axios.get('http://localhost:5000/user/getAddress')
         await this.setState({address:res.data})
-        console.log(this.state.address)
+        await console.log(this.state.address)
       }
     render(){
         return(
