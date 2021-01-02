@@ -130,21 +130,16 @@ router.route('/addToCart').post( (req,res) => {
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
-<<<<<<< HEAD
 
-=======
->>>>>>> 2d8cf0bd3031070bc08409027cbc3b1527268355
     object.cart.push(newCartItem);
     console.log(object);
     await object.save()
     .then(() => res.json('Added to cart!'))
     .catch(err => res.status(400).json('Error: ' + err));
-<<<<<<< HEAD
+
   });
-=======
+
     });
->>>>>>> 2d8cf0bd3031070bc08409027cbc3b1527268355
-  });
 
 router.route("/userCart").get( (req,res) => {
   var userGoogleId = user;
