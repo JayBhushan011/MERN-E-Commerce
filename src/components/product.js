@@ -36,7 +36,7 @@ export default function Product(props){
             data: {productId : props.match.params.id,quantity:qty},
           url: "http://localhost:5000/user/addToCart"
           })
-          window.location=`/cart/${props.match.params.id}/${qty}`
+          window.location='/cart'
         }
       })
     };
