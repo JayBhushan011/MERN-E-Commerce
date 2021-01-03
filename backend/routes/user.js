@@ -202,7 +202,7 @@ router.route('/removeFromCart').post( (req,res) => {
   }, async function(err, object){
     if (containsObjectAndRemove(productId,object.cart)){
       console.log(existingCartItemTwo);
-      object.cart.splice(existingCartItemTwo);
+      object.cart.splice(existingCartItemTwo,1);
       object.save()
       .then(() => res.json("Removed from Cart"))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -231,7 +231,7 @@ router.route('/cartToWishlist').post( (req,res) => {
         console.log("Already in wishlist");
       }
       else{object.wishlist.push({productId : productId});}
-      object.cart.splice(existingCartItemTwo);
+      object.cart.splice(existingCartItemTwo,1);
       object.save()
       .then(() => res.json("Removed from Cart and Moved to Wishlist"))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -259,7 +259,7 @@ router.route('/wishlistToCart').post( (req,res) => {
         console.log("Already in cart");
       }
       else{object.cart.push({productId : productId, quantity: "1"});}
-      object.wishlist.splice(existingCartItemTwo);
+      object.wishlist.splice(existingCartItemTwo,1);
       object.save()
       .then(() => res.json("Removed from Wishlist and Moved to Cart"))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -282,7 +282,7 @@ router.route('/removeFromWishlist').post( (req,res) => {
   }, async function(err, object){
     if (containsObjectAndRemove(productId,object.wishlist)){
       console.log(existingCartItemTwo);
-      object.wishlist.splice(existingCartItemTwo);
+      object.wishlist.splice(existingCartItemTwo,1);
       object.save()
       .then(() => res.json("Removed from Wishlist"))
       .catch(err => res.status(400).json('Error: ' + err));
