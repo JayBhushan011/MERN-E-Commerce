@@ -1,7 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 let Product = require('../models/product.model');
-//var user = "118094709362044179436";
+
 var user;
 var existingCartItem = 0;
 var existingCartItemTwo = 0;
@@ -137,10 +137,10 @@ router.route('/addAddress').post( (req,res) =>{
 router.route('/getAddress').get( (req,res) =>{
   var userGoogleId = user;
   if (user === " " || typeof user == 'undefined'){
-    res.send("User is logged out");
+    //res.send("User is logged out");
   }
   else{
-    res.send("User is logged in");
+    //res.send("User is logged in");
 
   User.findOne({
     googleId : userGoogleId
