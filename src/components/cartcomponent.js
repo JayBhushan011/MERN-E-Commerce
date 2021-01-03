@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import './cartcomponent.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import logo from './img_416864.ico' 
 
 export default function CartComp(props){
     const [finalinfo,setfinalinfo]=useState([])
@@ -33,8 +34,8 @@ function cartToWishlist(id){
                         <div className="min-30"><h5 className="width-1">{finalinfo.title}</h5></div>
                         <div className="min-9"><h5 className="width-2">{props.qty}</h5></div>
                         <div className="min-9"><h5 className="width">$ {finalinfo.price*props.qty}</h5></div>
-                        <div className="min-9"><button onClick={()=>removeFromCart(props.id)} className="btn btn-primary">Remove</button></div>
-                        <div className="min-5"><button onClick={()=>cartToWishlist(props.id)} className="btn btn-secondary">Move to wishlist</button></div>
+                        <div className="min-9"><button onClick={()=>removeFromCart(props.id)} className="btn btn-secondary"><img  width="20px" src={logo} alt="R"></img></button></div>
+                        <div className="min-5"><button onClick={()=>cartToWishlist(props.id)} className="btn btn-primary">Move to wishlist</button></div>
                     </div>
     </div>
     )

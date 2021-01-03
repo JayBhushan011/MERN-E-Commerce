@@ -26,10 +26,10 @@ function App() {
     <Route path="/cart" exact component={Cart}/>
     <Route path="/wishlist" component={Wishlist}/>
     <Route path="/profile" exact component={Profile}/>
-    <Route path="/checkout/:total" component={Checkout}/>
-    <Route path="/credit/:total" component={Credit}/>
-    <Route path="/debit/:total" component={Debit}/>
-    <Route path="/net/:total" component={Net}/>
+    <Route path="/checkout" component={Checkout}/>
+    <Route path="/credit" component={Credit}/>
+    <Route path="/debit" component={Debit}/>
+    <Route path="/net" component={Net}/>
     <Route path="/editprofile" exact component={EditProfile}/>
    </Router>
  );

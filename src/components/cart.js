@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
-import './cart.css'
 import CartComp from './cartcomponent'
 
 export default function Cart(props){
@@ -31,12 +30,15 @@ export default function Cart(props){
 
     return(
         <div>
-            <h1>Shopping Cart</h1>
-            <div className="./cart.css"></div>
+
+            <h1 className="container">Shopping Cart</h1>
             {finalinfo.length!==0&&finalinfo.map(data=><CartComp key={data.productId} qty={data.quantity} id={data.productId}/>)}
             <div className="container">
             {finalinfo.length===0&&<h4>Your cart is empty</h4>}
-            {finalinfo.length!==0&&<Link to={`/checkout/10`}>< button onClick={()=>checkAddress()} className="btn btn-one">Proceed to Checkout</button></Link>}
+            {finalinfo.length!==0&&<Link to={`/checkout`}>< button onClick={()=>checkAddress()} className="btn btn-primary">Checkout</button></Link>}
+            <br/>
+            <br/>
+            <Link to="/wishlist"><button className="btn btn-primary">Wishlist</button></Link>
             </div>
         </div>
     )
