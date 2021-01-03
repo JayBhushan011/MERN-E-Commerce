@@ -136,12 +136,18 @@ router.route('/addAddress').post( (req,res) =>{
 
 router.route('/getAddress').get( (req,res) =>{
   var userGoogleId = user;
+  if (user === " " || typeof user == 'undefined'){
+    res.send("User is logged out");
+  }
+  else{
+    res.send("User is logged in");
 
   User.findOne({
     googleId : userGoogleId
   },function(err, object){
     res.send(object.address);
-    });
+  });
+}
 });
 
 
