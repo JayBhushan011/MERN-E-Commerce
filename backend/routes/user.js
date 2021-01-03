@@ -1,8 +1,8 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 let Product = require('../models/product.model');
-var user = "118094709362044179436";
-//var user;
+//var user = "118094709362044179436";
+var user;
 var existingCartItem = 0;
 var existingCartItemTwo = 0;
 
