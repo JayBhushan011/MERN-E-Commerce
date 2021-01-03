@@ -20,7 +20,7 @@ export default function Product(props){
         }
         if(res.data==='User is logged in'){
           Axios.post('http://localhost:5000/user/addToWishlist',{"productId":props.match.params.id})
-          window.location=`/wishlist/${props.match.params.id}`
+          window.location=`/wishlist`
         }
       })
     }

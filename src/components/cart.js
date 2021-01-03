@@ -6,28 +6,37 @@ import CartComp from './cartcomponent'
 
 export default function Cart(props){
     const [finalinfo,setfinalinfo]=useState([])
-    const [total,settotal]=useState(String)
+    const [add,setadd]=useState([])
 
     useEffect(function effect(){
         async function getArray(){
             const res = await Axios.get('http://localhost:5000/user/userCart')
             await setfinalinfo(res.data)
 
-            const total = await Axios.get('http://localhost:5000/product/priceCalculate')
-            await settotal(total.data)
-            console.log(total.data)
+            const address = Axios.get('http://localhost:5000/user/getAddress')
+            await setadd(address.data)
         }
         getArray()
     },[])
     
+    const checkAddress=()=>{
+        if(add.length>0){
+            window.location=`/checkout/10`
+        }
+        else{
+            alert('Please enter your delivery address. You will be redirected to do so!')
+            window.location='/profile'
+        }
+    }
+
     return(
         <div>
             <h1>Shopping Cart</h1>
             <div className="./cart.css"></div>
-            {finalinfo.map(data=><CartComp qty={data.quantity} id={data.productId}/>)}
+            {finalinfo.length!==0&&finalinfo.map(data=><CartComp key={data.productId} qty={data.quantity} id={data.productId}/>)}
             <div className="container">
-            <h3>Total: {total}</h3>
-            <Link to={`/checkout/10`}><button className="btn btn-one">Proceed to Checkout</button></Link>
+            {finalinfo.length===0&&<h4>Your cart is empty</h4>}
+            {finalinfo.length!==0&&<Link to={`/checkout/10`}>< button onClick={()=>checkAddress()} className="btn btn-one">Proceed to Checkout</button></Link>}
             </div>
         </div>
     )

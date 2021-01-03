@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import './cart.css'
 import WishComp from './wishcomponent'
@@ -19,8 +18,9 @@ export default function Cart(props){
         <div>
             <h1>Wishlist</h1>
             <div className="./cart.css"></div>
-            {finalinfo.map(data=><WishComp id={data.productId}/>)}
+            {finalinfo.length!==0&&finalinfo.map(data=><WishComp id={data.productId}/>)}
             <div className="container">
+            {finalinfo.length===0&&<h4>Your wishlist is empty</h4>}
             </div>
         </div>
     )

@@ -24,7 +24,7 @@ function App() {
     <Route path="/books" exact component={Books}/>
     <Route path="/product/:id" component={Product}/>
     <Route path="/cart" exact component={Cart}/>
-    <Route path="/wishlist/:id" component={Wishlist}/>
+    <Route path="/wishlist" component={Wishlist}/>
     <Route path="/profile" exact component={Profile}/>
     <Route path="/checkout/:total" component={Checkout}/>
     <Route path="/credit/:total" component={Credit}/>

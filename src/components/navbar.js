@@ -24,6 +24,8 @@ export default class Navbar extends Component{
       })
 
       Axios.get('http://localhost:5000/user/userCart').then(res=>this.setState({finalinfo:res.data}))
+
+      Axios.get('http://localhost:5000/user/getAddress').then(res=>this.setState({address:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
@@ -86,7 +88,7 @@ export default class Navbar extends Component{
 
               {this.state.isLoggedin===true&&
               <ul className="navbar-nav ml-auto">
-                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/cart">Cart ({this.state.finalinfo.length})<span className="sr-only">(current)</span></a></li>}
+                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/cart">Cart <span className="badge">{this.state.finalinfo.length}</span><span className="sr-only">(current)</span></a></li>}
               <img src={this.state.url} alt="" height="50px"/>
                   <li className="nav-item dropdown active">
                   <a  className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Welcome {this.state.name}<span className="sr-only">(current)</span></a>
@@ -96,8 +98,8 @@ export default class Navbar extends Component{
                         clientId="938975649953-3ge11uotsdjfjhdhm4ud8ibgg7u3aeuh.apps.googleusercontent.com"
                         buttonText="Sign Out"
                         onLogoutSuccess={this.onSignOut}/></a>
-                    <a className="dropdown-item" href="/profile">Profile</a>
-                    <a className="dropdown-item" href="/editprofile">Edit Profile</a>
+                    {this.state.address.length===0&&<a className="dropdown-item" href="/profile">Profile</a>}
+                    {this.state.address.length!==0&&<a className="dropdown-item" href="/editprofile">Edit Profile</a>}
                   </div>
                 </li>
               </ul>}

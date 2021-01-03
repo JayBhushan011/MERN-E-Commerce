@@ -13,8 +13,8 @@ router.route('/priceCalculate').post( (req, res) => {
   price = req.body.total;
   res.send("Thanks")
 })
-router.route('/priceCalculate').get( (req, res) => {
-  res.send(price)
+router.route('/total').get( (req, res) => {
+  res.send(price.toFixed(2))
 })
 
 router.route('/getBooks').get((req, res) => {
