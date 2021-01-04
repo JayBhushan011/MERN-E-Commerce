@@ -22,6 +22,7 @@ title: String,
 ranking : Number,
 warranty : String,
 Category : String,
+reviews: [{review:{ type: String,default:' '}}]
 },
 {collection : "Product"}
 );

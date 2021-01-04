@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 let Product = require('../models/product.model');
-var price;
 
 router.route('/').get((req, res) => {
   Product.find()
@@ -9,12 +8,22 @@ router.route('/').get((req, res) => {
   .catch(err => res.status(400).json('Error : ' + err));
 });
 
-router.route('/priceCalculate').post( (req, res) => {
-  price = req.body.total;
-  res.send("Thanks")
-})
-router.route('/total').get( (req, res) => {
-  res.send(price.toFixed(2))
+router.route('/addReview').post((req,res)=>{
+  var productId=Number(req.body.id)
+  var newreview = {review:req.body.review}
+
+  Product.findOne({id:productId},async function(err,object){
+    object.reviews.push(newreview)
+    await object.save()
+    })
+  })
+
+router.route('/getReviews').get((req,res)=>{
+  var productId=Number(req.body.id)
+
+  Product.findOne({id:productId},async function(err,object){
+    res.send(object.reviews)
+  })
 })
 
 router.route('/getBooks').get((req, res) => {

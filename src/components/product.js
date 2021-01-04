@@ -1,16 +1,44 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import Axios from 'axios'
 import './product.css'
+import ReviewComp from './reviewcomponent'
 
 export default function Product(props){
     const [finalinfo,setfinalinfo]=useState([])
     const [qty,setqty]=useState(1)
+    const [review,setreview]=useState('')
+    const [reviews,setreviews]=useState([])
 
+    useEffect(function effect(){
+      async function getArray(id){
+        Axios.get('http://localhost:5000/product/getReviews',{"id":id})
+        .then(res=>setreviews(res.data))
+      }
+      getArray(props.match.params.id)
+    },[])
     function qtyhandle(e){
       let quantity={ ...qty }
       quantity = e.target.value
       setqty(quantity)
     }
+
+    function reviewhandler(e){
+      let body={ ...review }
+      body=e.target.value
+      setreview(body)
+    }
+
+    const addReview=(review)=>{
+      Axios.get('http://localhost:5000/user/checkLogIn').then(async res=>{
+        if(res.data==='User is logged out'){
+          alert('We need you to sign in to proceed to add to cart')
+          window.location='/'
+        }
+        else if(res.data==='User is logged in'){
+          alert('Review Added!')
+          Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review})
+      }
+    })}
 
     const addToWishlist=()=>{
       Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
@@ -24,13 +52,14 @@ export default function Product(props){
         }
       })
     }
-    const  addToCart=(qty)=>{
+
+    const addToCart=(qty)=>{
       Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
         if(res.data==='User is logged out'){
           alert('We need you to sign in to proceed to add to cart')
           window.location='/'
         }
-        if(res.data==='User is logged in'){
+        else if(res.data==='User is logged in'){
           Axios({
             method: "POST",
             data: {productId : props.match.params.id,quantity:qty},
@@ -61,12 +90,29 @@ export default function Product(props){
             <p className="p">{finalinfo.feature2}</p>
             <p className="p">{finalinfo.feature3}</p>
             <p>Availability: Available</p>
-            <label>Quantity:&nbsp; &nbsp;</label>
             <form>
+            <label>Quantity:&nbsp; &nbsp;</label>
             <input onChange={qtyhandle} type="number" maxLength="2" min="1" max="20" value={qty} required></input>
             <button className="btn btn-primary" onClick={()=>addToCart(qty)} id="shift" >Add to cart</button>
-            <button className="btn btn-primary" onClick={()=>addToWishlist()} id="shift1">Add to wishlist</button>
+            <br/>
+            <br/>
+            <button className="btn btn-primary" onClick={()=>addToWishlist()}>Add to wishlist</button>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             </form>
+            
+            <form className="container">
+            <h3>Reviews</h3>
+            <input className="review" onChange={reviewhandler} type="text" value={review} required></input>
+            <br/>
+            <br/>
+            <button className="btn btn-primary" onChange={()=>addReview(review)}>Submit Review</button>
+            </form>
+            {reviews.length===0&&<p className="container">Unfortunately, there are no reviews for this product yet!</p>}
+            {reviews.length!==0&&reviews.map(data=><ReviewComp className="container" key={data._id} review={data.review}/>)}
         </div>
     )
 }
