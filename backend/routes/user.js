@@ -220,8 +220,20 @@ router.route('/removeFromCart').post( (req,res) => {
 
 
   });
+});
 
-    });
+router.route('/emptyCart').post( (req,res) => {
+  var userGoogleId = user;
+
+  User.findOne({
+    googleId : userGoogleId
+  }, async function(err, object){
+      object.cart = [];
+      object.save()
+      .then(() => res.json("Cart emptied"))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
+});
 
 router.route('/cartToWishlist').post( (req,res) => {
   var userGoogleId = user;
