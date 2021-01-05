@@ -19,7 +19,7 @@ router.route('/addReview').post((req,res)=>{
     })
   })
 
-router.route('/getReviews').get((req,res)=>{
+router.route('/getReviews').post((req,res)=>{
   var productId=Number(req.body.id)
 
   Product.findOne({id:productId},async function(err,object){

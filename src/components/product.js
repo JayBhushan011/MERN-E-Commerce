@@ -10,17 +10,12 @@ export default function Product(props){
     const [reviews,setreviews]=useState([])
 
     useEffect(function effect(){
-      async function getArray(id){
-        Axios.get('http://localhost:5000/product/getReviews',{"id":id})
-        .then(res=>setreviews(res.data))
+      async function getArray(){
+        const res = await Axios.post('http://localhost:5000/product/getReviews',{"id":props.match.params.id})
+        await setreviews(res.data)
       }
-      getArray(props.match.params.id)
-    },[])
-    function qtyhandle(e){
-      let quantity={ ...qty }
-      quantity = e.target.value
-      setqty(quantity)
-    }
+      getArray()
+    },[props.match.params.id])
 
     function reviewhandler(e){
       let body={ ...review }
@@ -28,10 +23,15 @@ export default function Product(props){
       setreview(body)
     }
 
-    const addReview=(review)=>{
-          alert('Review being added')
-          Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review}).then(res=>console.log(res.data))
-          return false
+    function qtyhandle(e){
+      let quantity={ ...qty }
+      quantity = e.target.value
+      setqty(quantity)
+    }
+
+    const addReview=(e,review)=>{
+      e.preventDefault()
+          Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review})
     }
 
     const addToWishlist=()=>{
@@ -98,7 +98,7 @@ export default function Product(props){
             <br/>
             </form>
             
-            <form className="container" onSubmit={()=>addReview(review)}>
+            <form className="container" onSubmit={(e)=>addReview(e,review)}>
             <h3>Reviews</h3>
             <input className="review" onChange={reviewhandler} type="text" value={review} required></input>
             <br/>
@@ -106,7 +106,7 @@ export default function Product(props){
             <button className="btn btn-primary">Submit Review</button>
             </form>
             {reviews.length===0&&<p className="container">Unfortunately, there are no reviews for this product yet!</p>}
-            {reviews.length!==0&&reviews.map(data=><ReviewComp className="container" key={data._id} review={data.review}/>)}
+            {reviews.length!==0&&reviews.map(data=><ReviewComp key={data._id} review={data.review}/>)}
         </div>
     )
 }
