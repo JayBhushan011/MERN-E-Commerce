@@ -15,6 +15,7 @@ router.route('/addReview').post((req,res)=>{
   Product.findOne({id:productId},async function(err,object){
     object.reviews.push(newreview)
     await object.save()
+    res.send(object.reviews)
     })
   })
 

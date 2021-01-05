@@ -11,21 +11,18 @@ var object;
 export default class Navbar extends Component{
   constructor(props){
     super(props)
-    this.state={name:'',url:'',isLoggedin:false,address:[],finalinfo:[]}
+    this.state={name:'',url:'',isLoggedin:false,address:[],finalinfo:[],reviews:[]}
     this.responseGoogle=this.responseGoogle.bind(this)
     this.onSignOut=this.onSignOut.bind(this)
   }
   componentDidMount(){
     document.body.style.backgroundColor = "#fbeec1"
-    Axios.get('http://localhost:5000/user/checkLogIn')
-      .then(function (response) {
-       if (response.data === "User is logged out"){
-      alert("Please log in first")};
-      })
-
+    
       Axios.get('http://localhost:5000/user/userCart').then(res=>this.setState({finalinfo:res.data}))
 
       Axios.get('http://localhost:5000/user/getAddress').then(res=>this.setState({address:res.data}))
+
+      Axios.get('http://localhost:5000/product/getReviews',{"id":1}).then(res=>this.setState({reviews:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})

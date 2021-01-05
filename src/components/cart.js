@@ -12,22 +12,15 @@ export default function Cart(props){
             const res = await Axios.get('http://localhost:5000/user/userCart')
             await setfinalinfo(res.data)
 
-            const address = Axios.get('http://localhost:5000/user/getAddress')
+            const address = await Axios.get('http://localhost:5000/user/getAddress')
             await setadd(address.data)
         }
         getArray()
     },[])
     
     const checkAddress=()=>{
-        if(add.length>0){
-            window.location=`/checkout/10`
+            window.location=`/checkout`
         }
-        else{
-            alert('Please enter your delivery address. You will be redirected to do so!')
-            window.location='/profile'
-        }
-    }
-
     return(
         <div>
 

@@ -29,16 +29,10 @@ export default function Product(props){
     }
 
     const addReview=(review)=>{
-      Axios.get('http://localhost:5000/user/checkLogIn').then(async res=>{
-        if(res.data==='User is logged out'){
-          alert('We need you to sign in to proceed to add to cart')
-          window.location='/'
-        }
-        else if(res.data==='User is logged in'){
-          alert('Review Added!')
-          Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review})
-      }
-    })}
+          alert('Review being added')
+          Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review}).then(res=>console.log(res.data))
+          return false
+    }
 
     const addToWishlist=()=>{
       Axios.get('http://localhost:5000/user/checkLogIn').then(res=>{
@@ -104,12 +98,12 @@ export default function Product(props){
             <br/>
             </form>
             
-            <form className="container">
+            <form className="container" onSubmit={()=>addReview(review)}>
             <h3>Reviews</h3>
             <input className="review" onChange={reviewhandler} type="text" value={review} required></input>
             <br/>
             <br/>
-            <button className="btn btn-primary" onChange={()=>addReview(review)}>Submit Review</button>
+            <button className="btn btn-primary">Submit Review</button>
             </form>
             {reviews.length===0&&<p className="container">Unfortunately, there are no reviews for this product yet!</p>}
             {reviews.length!==0&&reviews.map(data=><ReviewComp className="container" key={data._id} review={data.review}/>)}

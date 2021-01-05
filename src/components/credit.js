@@ -3,15 +3,18 @@ import DatePicker from 'react-datepicker'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'react-datepicker/dist/react-datepicker.css'
+import Axios from 'axios'
 
 export default function Credit(props){
     const [startDate, setStartDate] = useState(new Date())
     function handleClick(e){
         e.preventDefault()
         alert('You will shortly be taken to the payment gateway. Please wait')
-        alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995')
+        setTimeout(alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995'),1000)
+        Axios.post('http://localhost:5000/user/emptyCart')
         window.location='/'
     }
+
     return(
         <div className="container">
             <br/>
@@ -28,8 +31,6 @@ export default function Credit(props){
                 <input required type="number" min="100" maxLength="3" className="form-control" placeholder="111"/>
                 <label>Name on Card *</label>
                 <input required type="text" maxLength="50" className="form-control" placeholder="Virat Kohli"/>
-                <br/>
-                <label>Amount: $ {props.match.params.total}</label>
                 <br/>
                 <button type="submit" className="btn btn-primary">Pay</button>
             </form>

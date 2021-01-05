@@ -9,7 +9,7 @@ export default function Debit(props){
     function handleClick(e){
         e.preventDefault()
         alert('You will shortly be taken to the payment gateway. Please wait')
-        alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995')
+        setTimeout(alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995'),1000)
         window.location='/'
     }
     return(
@@ -29,7 +29,6 @@ export default function Debit(props){
                 <label>Name on Card *</label>
                 <input required type="text" maxLength="50" className="form-control" placeholder="Virat Kohli"/>
                 <br/>
-                <label>Amount: $ {props.match.params.total}</label>
                 <br/>
                 <button type="submit" className="btn btn-primary">Pay</button>
             </form>
