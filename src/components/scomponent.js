@@ -6,7 +6,7 @@ import './scomponent.css'
 export default function Comp(props){
     return(
         <div>
-            <div className="./game-component.css"></div>
+            <div className="./scomponent.css"></div>
             <div className="container arrange">
               <Link to={`/product/${props.id}`}>
                 <button className="button">

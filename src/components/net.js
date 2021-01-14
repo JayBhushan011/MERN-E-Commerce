@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Axios from 'axios'
 
 export default function Net(props){
-
+    const [cart,setcart] = useState([])
     function handleClick(e){
         e.preventDefault()
         alert('You will shortly be taken to the payment gateway. Please wait')
-        setTimeout(alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995'),1000)
-        window.location='/'
+        alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995')
+        Axios.post('http://localhost:5000/user/emptyCart')
+        //window.location='/'
     }
+    useEffect(function effect(){
+        async function wait(){
+            const res = await Axios.get('http://localhost:5000/user/userCart')
+            await setcart(res.data)
+            await console.log(cart)
+            await cart.map(item=>Axios.post('http://localhost:5000/user/orderHistory',{"productId":item.productId}))
+            }
+            wait()
+    },[])
     return(
         <div className="container">
             <br/>

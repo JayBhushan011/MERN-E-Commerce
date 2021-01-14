@@ -32,6 +32,8 @@ export default function Product(props){
     const addReview=(e,review)=>{
       e.preventDefault()
           Axios.post('http://localhost:5000/product/addReview',{"id":props.match.params.id,"review":review})
+          alert('Your review has been added!')
+          window.location.reload(false)
     }
 
     const addToWishlist=()=>{
@@ -106,6 +108,7 @@ export default function Product(props){
             <button className="btn btn-primary">Submit Review</button>
             </form>
             {reviews.length===0&&<p className="container">Unfortunately, there are no reviews for this product yet!</p>}
+            <br/>
             {reviews.length!==0&&reviews.map(data=><ReviewComp key={data._id} review={data.review}/>)}
         </div>
     )

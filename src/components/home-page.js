@@ -19,7 +19,8 @@ export default class Home extends Component {
     return (
       <div>
         <Carousel/>
-        <h3>"Best sold games and books in the world at a price you never thought you could buy"-Times of India</h3>
+        <h2 className="center">About Us</h2>
+        <p className="width">jas.in is operated by Just A Second ecommerce Private Limited. A technology company based out of New Delhi and has offices in Kolkata, Mumbai, Bangalore and Chennai. Our mission is to give people the most convenient, easy and secure shopping experience on the web for buying books and games. jas.in has been noted as India's fastest growing retailer and currently has a catalogue of over 1 million books and one hundred thousand games. jas.in is a team of experienced professionals from diverse backgrounds working together to full-fill 3 main objectives, namely, lowe prices, vast catalogue selection and safe payment and delivery system. jas.in has 50,000 happy customers and the number is growing.</p>
         <h4 className="container">Games</h4>
         {this.state.finalbookinfo.length===0&&<h1>Loading ...</h1>}
         {this.state.finalgameinfo.length!==0&& this.state.finalgameinfo.map(game=><GameComp key={game.id} title={game.title} brand={game.brand} age={game.age} genre={game.genre} simgurl={game.simgurl} limgurl={game.limgurl} id={game.id} price={game.price}/>)}

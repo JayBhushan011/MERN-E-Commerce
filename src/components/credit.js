@@ -7,10 +7,14 @@ import Axios from 'axios'
 
 export default function Credit(props){
     const [startDate, setStartDate] = useState(new Date())
-    function handleClick(e){
+    const [cart,setcart] = useState([])
+    async function handleClick(e){
         e.preventDefault()
         alert('You will shortly be taken to the payment gateway. Please wait')
-        setTimeout(alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995'),1000)
+        alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995')
+        const res = await Axios.get('http://localhost:5000/user/userCart')
+        await setcart(res.data)
+        Axios.post('http://localhost:5000/user/orderHistory',{"cart":cart})
         Axios.post('http://localhost:5000/user/emptyCart')
         window.location='/'
     }

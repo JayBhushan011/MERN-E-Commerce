@@ -15,6 +15,9 @@ import Debit from "./components/debit"
 import Net from "./components/net"
 import EditProfile from "./components/editprofile"
 import Wishlist from './components/wishlist'
+import CNCS from './components/cncs'
+import Feedback from './components/feedback'
+import History from './components/history'
 function App() {
  return (
    <Router>
@@ -31,6 +34,9 @@ function App() {
     <Route path="/debit" component={Debit}/>
     <Route path="/net" component={Net}/>
     <Route path="/editprofile" exact component={EditProfile}/>
+    <Route path="/cncs" exact component={CNCS}/>
+    <Route path="/feedback" exact component={Feedback}/>
+    <Route path="/history" exact component={History}/>
    </Router>
  );
 }

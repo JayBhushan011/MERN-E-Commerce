@@ -43,8 +43,18 @@ const userSchema = new Schema ({
     quantity: {type: String,
     default: ' '}
   }
-]
-}, {
+],
+recentHistory: [{
+  orderDate: {type:String, default: ' '},
+  items : [{
+productId:{type: String,
+  default: ' '},
+quantity: {type: String,
+  default: ' '}
+}]
+}]
+},
+{
   timestamps: true,
 });
 

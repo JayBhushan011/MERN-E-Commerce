@@ -3,13 +3,19 @@ import DatePicker from 'react-datepicker'
 import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'react-datepicker/dist/react-datepicker.css'
+import Axios from 'axios'
 
 export default function Debit(props){
+    const [cart,setcart] = useState([])
     const [startDate, setStartDate] = useState(new Date())
-    function handleClick(e){
+    async function handleClick(e){
         e.preventDefault()
         alert('You will shortly be taken to the payment gateway. Please wait')
-        setTimeout(alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995'),1000)
+        alert('Your payment has been successful. We truly appreciate your trust with Just A Second. Your order id is ORDIN93784995')
+        const res = await Axios.get('http://localhost:5000/user/userCart')
+        await setcart(res.data)
+        Axios.post('http://localhost:5000/user/orderHistory',{"cart":cart})
+        Axios.post('http://localhost:5000/user/emptyCart')
         window.location='/'
     }
     return(

@@ -21,8 +21,6 @@ export default class Navbar extends Component{
       Axios.get('http://localhost:5000/user/userCart').then(res=>this.setState({finalinfo:res.data}))
 
       Axios.get('http://localhost:5000/user/getAddress').then(res=>this.setState({address:res.data}))
-
-      Axios.get('http://localhost:5000/product/getReviews',{"id":1}).then(res=>this.setState({reviews:res.data}))
   }
   responseGoogle(res){
       this.setState({name:res.profileObj.givenName})
@@ -38,8 +36,8 @@ export default class Navbar extends Component{
         data: object,
         url: "http://localhost:5000/user/add"
       })
-
       refreshTokenSetup(res)
+      //window.location.reload(false)
   }
   onSignOut(res){
       Axios({
@@ -67,7 +65,6 @@ export default class Navbar extends Component{
                   <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contact</a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a className="dropdown-item" href="/cncs">Contact and Customer Support</a>{/*https://getbootstrap.com/docs/4.0/components/dropdowns/*/}
-                      <a className="dropdown-item" href="/faqs">FAQs</a>
                       <div className="dropdown-divider"></div>
                       <a className="dropdown-item" href="/feedback">Feedback</a>
                     </div>
@@ -86,6 +83,8 @@ export default class Navbar extends Component{
               {this.state.isLoggedin===true&&
               <ul className="navbar-nav ml-auto">
                 {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/cart">Cart <span className="badge">{this.state.finalinfo.length}</span><span className="sr-only">(current)</span></a></li>}
+                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/wishlist">Wishlist <span className="badge"></span><span className="sr-only">(current)</span></a></li>}
+                {this.state.finalinfo.length!==0&&<li className="nav-item"><a className="nav-link active" href="/history">Order History <span className="badge"></span><span className="sr-only">(current)</span></a></li>}
               <img src={this.state.url} alt="" height="50px"/>
                   <li className="nav-item dropdown active">
                   <a  className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Welcome {this.state.name}<span className="sr-only">(current)</span></a>

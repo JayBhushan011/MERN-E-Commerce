@@ -224,15 +224,43 @@ router.route('/removeFromCart').post( (req,res) => {
 
 router.route('/emptyCart').post( (req,res) => {
   var userGoogleId = user;
+  var oldOrder;
+  var oldCart;
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = dd + '/' + mm + '/' + yyyy;
 
   User.findOne({
     googleId : userGoogleId
   }, async function(err, object){
-      object.cart = [];
+      oldCart = object.cart;
+      oldOrder = {orderDate: today, items: oldCart};
+      //object.recentHistory = (object.recentHistory).concat(oldCart);
+      object.recentHistory.push(oldOrder);
+      //object.cart = [];
+      console.log(object)
       object.save()
-      .then(() => res.json("Cart emptied"))
+      .then(() => res.json("Cart emptied" + object))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+});
+
+router.route("/userHistory").get( (req,res) => {
+  var userGoogleId = user;
+
+  if (user === " " || typeof user == 'undefined'){
+    res.send("User is logged out. Please log in.");
+  }
+  else{
+    User.findOne({
+      googleId : userGoogleId
+    }, function(err, object){
+      res.send(object.recentHistory)
+      });
+  }
 });
 
 router.route('/cartToWishlist').post( (req,res) => {
