@@ -31,12 +31,12 @@ function cartToWishlist(id){
             <br/>
                     <div className="row">
                     <Link to={`/product/${props.id}`}><div className="small"><img className="width" height="100px" width="100px" src={finalinfo.simgurl} alt={finalinfo.title}/></div></Link>
-                        <div className="min-30"><h5 className="width-1">{finalinfo.title}</h5></div>
-                        <div className="min-9"><h5 className="width-2">{props.qty}</h5></div>
-                        <div className="min-9"><h5 className="width">$ {finalinfo.price*props.qty}</h5></div>
-                        <div className="min-9"><h5 className="width-2">{props.orderDate}</h5></div>
+                        <div className="min-20"><h5 className="width-1">{finalinfo.title}</h5></div>
+                        <div className="min-5"><h5 className="width-2">{props.qty}</h5></div>
+                        <div className="min-9"><h5 className="width">{finalinfo.price*props.qty}</h5></div>
                         <div className="min-9"><button onClick={()=>removeFromCart(props.id)} className="btn btn-secondary"><img  width="20px" src={logo} alt="R"></img></button></div>
                         <div className="min-5"><button onClick={()=>cartToWishlist(props.id)} className="btn btn-primary">Move to wishlist</button></div>
+                        <div className="min-9"><h5 className="width-2">{props.orderDate}</h5></div>
                     </div>
     </div>
     )
