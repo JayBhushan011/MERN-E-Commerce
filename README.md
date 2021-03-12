@@ -2,8 +2,8 @@ This is an e-commerce website developed by Jay Bhushan and Saravana Chilamakuri 
 
 We would like to thank all the course staff for providing such a wonderful opportunity to learn to develop a website.
 
-This website is developed using the MERN Stack. Features that have been incorporated include-
-1. Suggestions on the home page using user data stored in a MongoDB Database.
+This website is developed using the MERN Stack, thus uses MongoDB. Features that have been incorporated include-
+1. Product suggestions based on user's history on the website. 
 2. Authentication using Google OAuth 2.0
 3. Fully functioning cart and wishlist.
 4. User profile including order history. 
