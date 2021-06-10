@@ -14,6 +14,8 @@ app.use(cors({
   credentials: true
 })
 );
+router.options('/send', cors()); // ADDED
+router.get('/send', cors(), (req, res) => { // ADDED
 
 
 // DATABASE SETUP //
